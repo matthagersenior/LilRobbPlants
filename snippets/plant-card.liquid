@@ -1,0 +1,33 @@
+{% assign card_variant = product.selected_or_first_available_variant %}
+<article class="plant-card leaf-edge">
+  <a class="plant-card__media" href="{{ product.url }}">
+    {% if product.featured_image != blank %}
+      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw', alt: product.featured_image.alt | default: product.title }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </a>
+  <div class="plant-card__body">
+    <div class="plant-card__heading">
+      <div>
+        <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+        {% if product.metafields.plant.species.value != blank %}<p class="species"><em>{{ product.metafields.plant.species.value }}</em></p>{% endif %}
+      </div>
+      {% render 'price', product: product, variant: card_variant %}
+    </div>
+    {% render 'inventory-status', variant: card_variant %}
+    {% if product.metafields.plant.light.value != blank or product.metafields.plant.watering.value != blank %}
+      <div class="card-care">
+        {% if product.metafields.plant.light.value != blank %}<span><span aria-hidden="true">{% render 'icon-sun' %}</span>{{ product.metafields.plant.light.value }}</span>{% endif %}
+        {% if product.metafields.plant.watering.value != blank %}<span><span aria-hidden="true">{% render 'icon-water' %}</span>{{ product.metafields.plant.watering.value }}</span>{% endif %}
+      </div>
+    {% endif %}
+    {% form 'product', product, class: 'quick-add' %}
+      <input type="hidden" name="id" value="{{ card_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button class="button button--full" type="submit"{% unless card_variant.available %} disabled{% endunless %}>
+        {% if card_variant.available %}Add to cart{% else %}Sold out{% endif %}
+      </button>
+    {% endform %}
+  </div>
+</article>

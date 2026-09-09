@@ -1,0 +1,43 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Lil Robb Plants",
+    "theme_author": "Lil Robb Plants",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://github.com/matthagersenior/LilRobbPlants",
+    "theme_support_url": "https://github.com/matthagersenior/LilRobbPlants/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "range", "id": "logo_width", "min": 80, "max": 260, "step": 10, "unit": "px", "label": "Logo width", "default": 150 }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_surface", "label": "Background", "default": "#F7F3EA" },
+      { "type": "color", "id": "color_raised", "label": "Cards and raised surfaces", "default": "#FFFFFF" },
+      { "type": "color", "id": "color_ink", "label": "Primary text", "default": "#1F3A2D" },
+      { "type": "color", "id": "color_muted", "label": "Secondary text", "default": "#6E5B48" },
+      { "type": "color", "id": "color_accent", "label": "Buttons and accents", "default": "#2D5A3C" },
+      { "type": "color", "id": "color_focus", "label": "Focus ring", "default": "#375D3B" }
+    ]
+  },
+  {
+    "name": "Inventory and fulfillment",
+    "settings": [
+      { "type": "range", "id": "low_stock_threshold", "min": 1, "max": 20, "step": 1, "label": "Low stock threshold", "default": 4 },
+      { "type": "text", "id": "shipping_message", "label": "Product shipping note", "default": "Shipping and pickup options are shown at checkout." }
+    ]
+  },
+  {
+    "name": "Store contact",
+    "settings": [
+      { "type": "text", "id": "contact_email", "label": "Public contact email" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram URL" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook URL" }
+    ]
+  }
+]

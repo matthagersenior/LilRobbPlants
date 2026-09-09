@@ -1,0 +1,13 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "menu": "Menu"
+  },
+  "general": {
+    "meta": {
+      "tags": "Tagged {{ tags }}",
+      "page": "Page {{ page }}"
+    }
+  }
+}

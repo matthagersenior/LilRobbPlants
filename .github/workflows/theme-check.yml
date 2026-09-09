@@ -1,0 +1,33 @@
+name: Shopify Theme Check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - run: npm run validate
+      - name: Blocking Shopify Theme Check
+        run: npx --yes @shopify/cli@latest theme check --path . --fail-level error
+
+  shopify-theme-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Theme Check
+        uses: shopify/theme-check-action@v2
+        with:
+          theme_root: '.'
+          token: ${{ github.token }}
+          base: main

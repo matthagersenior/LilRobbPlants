@@ -1,0 +1,16 @@
+{% liquid
+  assign threshold = settings.low_stock_threshold | default: 4
+  assign tracked = false
+  if variant.inventory_management != blank
+    assign tracked = true
+  endif
+%}
+{% if variant.available %}
+  {% if tracked and variant.inventory_quantity > 0 and variant.inventory_quantity <= threshold %}
+    <span class="inventory inventory--low">Only {{ variant.inventory_quantity }} left</span>
+  {% else %}
+    <span class="inventory inventory--in">In stock</span>
+  {% endif %}
+{% else %}
+  <span class="inventory inventory--out">Sold out</span>
+{% endif %}

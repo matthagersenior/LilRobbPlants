@@ -1,0 +1,67 @@
+{% assign selected_variant = product.selected_or_first_available_variant %}
+<section class="section product-page" data-product-section data-low-stock="{{ settings.low_stock_threshold }}">
+  <div class="page-width product-layout">
+    <div class="product-gallery leaf-edge">
+      {% if product.media.size > 0 %}
+        <div class="product-gallery__grid">
+          {% for media in product.media %}
+            {% if media.media_type == 'image' %}
+              <figure class="product-media">
+                {{ media.preview_image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 768px) 58vw, 100vw', alt: media.alt | default: product.title }}
+              </figure>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+
+    <div class="product-info">
+      <p class="eyebrow">{{ product.type | default: 'Houseplant' | escape }}</p>
+      <h1>{{ product.title | escape }}</h1>
+      {% if product.metafields.plant.species.value != blank %}<p class="species species--large"><em>{{ product.metafields.plant.species.value }}</em></p>{% endif %}
+      <div class="product-price" data-product-price>{{ selected_variant.price | money }}</div>
+      <div data-inventory-status>{% render 'inventory-status', variant: selected_variant %}</div>
+      {% if product.description != blank %}<div class="rte product-description">{{ product.description }}</div>{% endif %}
+
+      {% assign product_form_id = 'ProductForm-' | append: section.id %}
+      {% form 'product', product, id: product_form_id, class: 'product-form' %}
+        {% if product.variants.size > 1 %}
+          <label for="Variant-{{ section.id }}">Size or option</label>
+          <select id="Variant-{{ section.id }}" name="id" data-variant-select>
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}"
+                data-price="{{ variant.price | money | escape }}"
+                data-available="{{ variant.available }}"
+                data-inventory="{{ variant.inventory_quantity }}"
+                data-tracked="{% if variant.inventory_management != blank %}true{% else %}false{% endif %}"
+                {% if variant.id == selected_variant.id %}selected{% endif %}>
+                {{ variant.title | escape }} — {{ variant.price | money }}{% unless variant.available %} — Sold out{% endunless %}
+              </option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <input type="hidden" name="id" value="{{ selected_variant.id }}">
+        {% endif %}
+
+        <label for="Quantity-{{ section.id }}">Quantity</label>
+        <input id="Quantity-{{ section.id }}" class="quantity-input" type="number" name="quantity" min="1" value="1" inputmode="numeric">
+
+        <button class="button button--full product-submit" type="submit" data-product-submit{% unless selected_variant.available %} disabled{% endunless %}>
+          <span data-product-submit-label>{% if selected_variant.available %}Add to cart{% else %}Sold out{% endif %}</span>
+        </button>
+      {% endform %}
+
+      {% if settings.shipping_message != blank %}<p class="shipping-note"><span aria-hidden="true">{% render 'icon-leaf' %}</span>{{ settings.shipping_message | escape }}</p>{% endif %}
+    </div>
+  </div>
+  <div class="page-width product-care-wrap">{% render 'plant-care', product: product %}</div>
+</section>
+
+{% schema %}
+{
+  "name": "Product details",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+<section class="section">
+  <div class="page-width">
+    <div class="section-heading"><h1>Your cart</h1></div>
+    {% if cart.item_count > 0 %}
+      {% form 'cart', cart, class: 'cart-form' %}
+        <div class="cart-layout">
+          <div class="cart-lines">
+            {% for item in cart.items %}
+              <article class="cart-line">
+                <a class="cart-line__image" href="{{ item.url }}">{% if item.image != blank %}{{ item.image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160, 240, 320', sizes: '120px', alt: item.image.alt | default: item.product.title }}{% endif %}</a>
+                <div class="cart-line__details">
+                  <h2><a href="{{ item.url }}">{{ item.product.title | escape }}</a></h2>
+                  {% unless item.variant.title == 'Default Title' %}<p>{{ item.variant.title | escape }}</p>{% endunless %}
+                  <p>{{ item.final_price | money }}</p>
+                  <label for="CartQuantity-{{ forloop.index }}">Quantity</label>
+                  <input id="CartQuantity-{{ forloop.index }}" class="quantity-input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric">
+                  <a class="text-link" href="{{ item.url_to_remove }}">Remove</a>
+                </div>
+                <strong class="cart-line__total">{{ item.final_line_price | money }}</strong>
+              </article>
+            {% endfor %}
+          </div>
+          <aside class="cart-summary" aria-label="Order summary">
+            <div class="cart-summary__row"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+            <p>Shipping, taxes, and available pickup options are calculated at checkout.</p>
+            <button class="button button--secondary button--full" type="submit" name="update">Update cart</button>
+            <button class="button button--full" type="submit" name="checkout">Checkout</button>
+          </aside>
+        </div>
+      {% endform %}
+    {% else %}
+      <div class="empty-state"><span class="empty-state__icon" aria-hidden="true">{% render 'icon-leaf' %}</span><h2>Your cart is empty</h2><p>Browse the plants currently available and add one when you find the right fit.</p><a class="button" href="{{ routes.all_products_collection_url }}">Shop plants</a></div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}{ "name": "Cart", "settings": [] }{% endschema %}

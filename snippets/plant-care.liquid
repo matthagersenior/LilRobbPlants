@@ -1,0 +1,30 @@
+{% assign species = product.metafields.plant.species.value %}
+{% assign light = product.metafields.plant.light.value %}
+{% assign watering = product.metafields.plant.watering.value %}
+{% assign soil = product.metafields.plant.soil.value %}
+{% assign growing = product.metafields.plant.growing_conditions.value %}
+{% assign difficulty = product.metafields.plant.difficulty.value %}
+{% assign humidity = product.metafields.plant.humidity.value %}
+{% assign mature_size = product.metafields.plant.mature_size.value %}
+{% assign pet_safety = product.metafields.plant.pet_safety.value %}
+{% assign care_notes = product.metafields.plant.care_notes.value %}
+
+{% if species != blank or light != blank or watering != blank or soil != blank or growing != blank or difficulty != blank or humidity != blank or mature_size != blank or pet_safety != blank or care_notes != blank %}
+  <section class="plant-care" aria-labelledby="PlantCareHeading-{{ product.id }}">
+    <div class="section-heading section-heading--compact">
+      <div><p class="eyebrow">Care guide</p><h2 id="PlantCareHeading-{{ product.id }}">Plant care at a glance</h2></div>
+    </div>
+    <dl class="care-grid">
+      {% if species != blank %}<div class="care-fact"><dt>Species</dt><dd><em>{{ species }}</em></dd></div>{% endif %}
+      {% if light != blank %}<div class="care-fact"><dt><span aria-hidden="true">{% render 'icon-sun' %}</span> Light</dt><dd>{{ light }}</dd></div>{% endif %}
+      {% if watering != blank %}<div class="care-fact"><dt><span aria-hidden="true">{% render 'icon-water' %}</span> Water</dt><dd>{{ watering }}</dd></div>{% endif %}
+      {% if soil != blank %}<div class="care-fact"><dt>Soil</dt><dd>{{ soil }}</dd></div>{% endif %}
+      {% if growing != blank %}<div class="care-fact"><dt>Growing conditions</dt><dd>{{ growing }}</dd></div>{% endif %}
+      {% if difficulty != blank %}<div class="care-fact"><dt>Difficulty</dt><dd>{{ difficulty }}</dd></div>{% endif %}
+      {% if humidity != blank %}<div class="care-fact"><dt>Humidity</dt><dd>{{ humidity }}</dd></div>{% endif %}
+      {% if mature_size != blank %}<div class="care-fact"><dt>Mature size</dt><dd>{{ mature_size }}</dd></div>{% endif %}
+      {% if pet_safety != blank %}<div class="care-fact"><dt>Pet safety</dt><dd>{{ pet_safety }}</dd></div>{% endif %}
+      {% if care_notes != blank %}<div class="care-fact care-fact--wide"><dt>Extra care notes</dt><dd>{{ care_notes }}</dd></div>{% endif %}
+    </dl>
+  </section>
+{% endif %}
