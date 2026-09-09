@@ -119,7 +119,8 @@ function showDetails(id) {
   const product = state.products.find((item) => item.id === id);
   if (!product) return;
   const facts = [['Light', product.light], ['Water', product.watering], ['Soil', product.soil], ['Growing conditions', product.growingConditions], ['Difficulty', product.difficulty], ['Humidity', product.humidity], ['Mature size', product.matureSize], ['Pet safety', product.petSafety], ['Care notes', product.careNotes]];
-  dialogContent.innerHTML = `<p class="eyebrow">Plant care</p><h2>${esc(product.title)}</h2><p class="dialog-species">${esc(product.species)}</p><p class="dialog-price">${money(product.price)}</p><p>${esc(product.description)}</p><div class="care-grid">${facts.map(([label, value]) => `<div class="care-fact"><strong>${esc(label)}</strong><span>${esc(value)}</span></div>`).join('')}</div>`;
+  const photo = product.imageUrl ? `<img src="${esc(product.imageUrl)}" alt="${esc(product.title)}" style="display:block;width:100%;max-height:360px;object-fit:cover;border-radius:18px;margin:0 0 1.1rem">` : '';
+  dialogContent.innerHTML = `${photo}<p class="eyebrow">Plant care</p><h2>${esc(product.title)}</h2><p class="dialog-species">${esc(product.species)}</p><p class="dialog-price">${money(product.price)}</p><p>${esc(product.description)}</p><div class="care-grid">${facts.map(([label, value]) => `<div class="care-fact"><strong>${esc(label)}</strong><span>${esc(value)}</span></div>`).join('')}</div>`;
   dialog.showModal();
 }
 
@@ -149,30 +150,28 @@ async function loadProducts() {
   };
 
   try {
-    const cfg = window.LIL_ROBB_SUPABASE || {};
-    if (cfg.url && cfg.publishableKey && window.supabase?.createClient) {
-      const live = window.supabase.createClient(cfg.url, cfg.publishableKey);
-      const [productResult, settingsResult] = await Promise.all([
-        live.from('lil_robb_products').select('*').eq('is_published', true).order('title'),
-        live.from('lil_robb_store_settings').select('*').eq('id', true).maybeSingle()
+    const baseUrl = String(window.LIL_ROBB_API?.baseUrl || '').replace(/\/$/, '');
+    if (baseUrl) {
+      const [productResponse, settingsResponse] = await Promise.all([
+        fetch(`${baseUrl}/api/catalog`, { headers: { Accept: 'application/json' } }),
+        fetch(`${baseUrl}/api/settings`, { headers: { Accept: 'application/json' } })
       ]);
-      if (productResult.error) throw productResult.error;
-      if (settingsResult.error) throw settingsResult.error;
-      state.products = (productResult.data || []).map(mapLiveProduct);
-      if (settingsResult.data) {
-        state.settings = {
-          comingSoon: settingsResult.data.coming_soon !== false,
-          announcement: settingsResult.data.announcement || state.settings.announcement,
-          standardShipping: Number(settingsResult.data.standard_shipping ?? 10),
-          freeShippingThreshold: Number(settingsResult.data.free_shipping_threshold ?? 75),
-          localPickupEnabled: settingsResult.data.local_pickup_enabled !== false
-        };
-      }
+      if (!productResponse.ok) throw new Error(`Live catalog HTTP ${productResponse.status}`);
+      if (!settingsResponse.ok) throw new Error(`Live settings HTTP ${settingsResponse.status}`);
+      state.products = (await productResponse.json()).map(mapLiveProduct);
+      const liveSettings = await settingsResponse.json();
+      state.settings = {
+        comingSoon: liveSettings.coming_soon !== false,
+        announcement: liveSettings.announcement || state.settings.announcement,
+        standardShipping: Number(liveSettings.standard_shipping ?? 10),
+        freeShippingThreshold: Number(liveSettings.free_shipping_threshold ?? 75),
+        localPickupEnabled: liveSettings.local_pickup_enabled !== false
+      };
     } else {
       state.products = await fallback();
     }
   } catch (error) {
-    console.warn('Live catalog unavailable; using static fallback.', error);
+    console.warn('Live Cloudflare catalog unavailable; using static fallback.', error);
     try { state.products = await fallback(); }
     catch (fallbackError) {
       grid.innerHTML = '<p class="empty-state">The plant catalog could not load. Refresh the page to try again.</p>';
