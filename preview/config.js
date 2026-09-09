@@ -1,4 +1,3 @@
-window.LIL_ROBB_SUPABASE = Object.freeze({
-  url: '',
-  publishableKey: ''
+window.LIL_ROBB_API = Object.freeze({
+  baseUrl: ''
 });
