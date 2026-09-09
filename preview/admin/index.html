@@ -7,7 +7,6 @@
   <title>Lil Robb Plants — Admin Control Console</title>
   <link rel="stylesheet" href="./admin.css">
   <script src="../config.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0"></script>
   <script src="./admin.js" defer></script>
 </head>
 <body>
@@ -23,38 +22,24 @@
     <section class="intro">
       <p class="eyebrow">Owner tools</p>
       <h1>Admin Control Console</h1>
-      <p>Manage the launch catalog, inventory, prices, shipping examples, and Coming Soon state. Payments stay disabled until the Shopify upgrade.</p>
+      <p>Manage the launch catalog, Inventory, prices, Shipping examples, plant photos, and Coming Soon state. Payments stay disabled until the Shopify upgrade.</p>
       <p id="globalStatus" class="status" role="status" aria-live="polite"></p>
     </section>
 
     <section id="configMissing" class="panel warning" hidden>
       <h2>Admin backend not connected</h2>
-      <p>The storefront can still use its embedded sample catalog, but secure admin login requires the dedicated Lil Robb Plants Supabase project.</p>
+      <p>The storefront is still live with its embedded sample catalog. Secure admin login will activate after the Cloudflare Worker URL is added to <code>preview/config.js</code>.</p>
     </section>
 
     <section id="authPanel" class="panel auth-panel" hidden>
       <div>
         <p class="eyebrow">Secure owner access</p>
         <h2>Sign in</h2>
-        <p>Use your owner email and password. New owner accounts can be created here, then claimed with the one-time bootstrap code.</p>
+        <p>Use the owner password stored as the Cloudflare Worker <strong>ADMIN_PASSWORD</strong> secret. The password is never stored in this site or repository.</p>
       </div>
       <form id="authForm" class="stack">
-        <label>Email<input id="emailInput" type="email" autocomplete="email" required></label>
-        <label>Password<input id="passwordInput" type="password" autocomplete="current-password" minlength="8" required></label>
-        <div class="button-row">
-          <button class="primary" type="submit">Sign in</button>
-          <button id="signUpButton" class="secondary" type="button">Create owner account</button>
-        </div>
-      </form>
-    </section>
-
-    <section id="claimPanel" class="panel" hidden>
-      <p class="eyebrow">First-time setup</p>
-      <h2>Claim owner access</h2>
-      <p>Your account is authenticated but is not yet an owner. Enter the one-time bootstrap code generated during backend setup.</p>
-      <form id="claimForm" class="inline-form">
-        <label>Bootstrap code<input id="bootstrapInput" type="password" autocomplete="one-time-code" required></label>
-        <button class="primary" type="submit">Claim owner access</button>
+        <label>Owner password<input id="passwordInput" type="password" autocomplete="current-password" minlength="12" required></label>
+        <div class="button-row"><button class="primary" type="submit">Sign in</button></div>
       </form>
     </section>
 
@@ -66,9 +51,7 @@
       </div>
 
       <section class="panel">
-        <div class="panel-head">
-          <div><p class="eyebrow">Store controls</p><h2>Shipping & Coming Soon</h2></div>
-        </div>
+        <div class="panel-head"><div><p class="eyebrow">Store controls</p><h2>Shipping & Coming Soon</h2></div></div>
         <form id="settingsForm" class="settings-grid">
           <label class="wide">Announcement<input id="announcementInput" type="text" maxlength="240"></label>
           <label>Standard shipping ($)<input id="shippingInput" type="number" min="0" step="0.01"></label>
@@ -108,7 +91,7 @@
           <label class="wide">Growing conditions<textarea name="growing_conditions" rows="3"></textarea></label>
           <label class="wide">Description<textarea name="description" rows="4"></textarea></label>
           <label class="wide">Care notes<textarea name="care_notes" rows="4"></textarea></label>
-          <label class="wide">Image URL (optional)<input name="image_url" type="url" placeholder="https://..."></label>
+          <label class="wide">Image URL<input name="image_url" type="url" placeholder="https://..."></label>
           <label>Art variant<input name="art_variant" type="number" min="0" max="4" step="1" value="0"></label>
           <label class="check"><input name="is_published" type="checkbox" checked> Published</label>
           <div class="wide button-row">
