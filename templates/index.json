@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "featured": { "type": "featured-collection", "settings": {} },
+    "categories": {
+      "type": "category-grid",
+      "blocks": {
+        "beginner": { "type": "collection", "settings": { "fallback_title": "Beginner friendly" } },
+        "lowlight": { "type": "collection", "settings": { "fallback_title": "Low light" } },
+        "tropical": { "type": "collection", "settings": { "fallback_title": "Tropical" } }
+      },
+      "block_order": ["beginner", "lowlight", "tropical"],
+      "settings": {}
+    },
+    "care": { "type": "image-with-text", "settings": {} },
+    "about": { "type": "rich-text", "settings": { "eyebrow": "About the shop" } },
+    "newsletter": { "type": "newsletter", "settings": {} }
+  },
+  "order": ["hero", "featured", "categories", "care", "about", "newsletter"]
+}
