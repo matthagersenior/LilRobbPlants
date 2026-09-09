@@ -18,6 +18,8 @@ jobs:
           node-version: 22
       - run: npm test
       - run: npm run validate
+      - name: Blocking Shopify Theme Check
+        run: npx --yes @shopify/cli@latest theme check --path . --fail-level error
 
   shopify-theme-check:
     runs-on: ubuntu-latest
