@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="page-width image-text{% if section.settings.image_position == 'right' %} image-text--reverse{% endif %}">
+    <div class="image-text__media leaf-edge">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200', sizes: '(min-width: 768px) 50vw, 100vw', alt: section.settings.image.alt }}
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+    <div class="image-text__content">
+      {% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}<a class="button button--secondary" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "image_position", "label": "Image position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Plant care made clearer" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Know what your plant needs before it comes home." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Each listing can show light, water, soil, humidity, growing conditions, mature size, and pet-safety notes.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Read plant care" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Image with text" }]
+}
+{% endschema %}

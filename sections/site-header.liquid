@@ -1,0 +1,38 @@
+<header class="site-header" data-site-header>
+  <div class="page-width site-header__inner">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="SiteNav-{{ section.id }}" data-menu-toggle>
+      <span class="menu-toggle__icon" aria-hidden="true">☰</span>
+      <span>{{ 'accessibility.menu' | t }}</span>
+    </button>
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
+      {% if settings.logo != blank %}
+        {{ settings.logo | image_url: width: settings.logo_width | image_tag: class: 'brand__logo', widths: '80, 120, 160, 200, 260', alt: shop.name }}
+      {% else %}
+        <span class="brand__mark" aria-hidden="true">{% render 'icon-leaf' %}</span>
+        <span class="brand__text">Lil Robb Plants</span>
+      {% endif %}
+    </a>
+    <nav id="SiteNav-{{ section.id }}" class="site-nav" aria-label="Primary navigation" data-mobile-menu>
+      <ul class="site-nav__list" role="list">
+        {% for link in section.settings.menu.links %}
+          <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+      <form class="header-search" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="visually-hidden" for="HeaderSearch-{{ section.id }}">Search plants</label>
+        <input id="HeaderSearch-{{ section.id }}" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search plants">
+        <button type="submit">Search</button>
+      </form>
+    </nav>
+    <a class="cart-link" href="{{ routes.cart_url }}" aria-label="Cart with {{ cart.item_count }} items">Cart <span class="cart-count">{{ cart.item_count }}</span></a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Site header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

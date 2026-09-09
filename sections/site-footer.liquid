@@ -1,0 +1,42 @@
+<footer class="site-footer">
+  <div class="page-width footer-grid">
+    <div>
+      <a class="brand brand--footer" href="{{ routes.root_url }}"><span class="brand__mark" aria-hidden="true">{% render 'icon-leaf' %}</span><span class="brand__text">Lil Robb Plants</span></a>
+      <p class="footer-copy">{{ section.settings.tagline | escape }}</p>
+    </div>
+    {% if section.settings.menu != blank %}
+      <nav aria-label="Footer navigation">
+        <h2 class="footer-heading">Explore</h2>
+        <ul class="footer-links" role="list">{% for link in section.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}</ul>
+      </nav>
+    {% endif %}
+    <div>
+      <h2 class="footer-heading">Contact</h2>
+      {% if settings.contact_email != blank %}<p><a href="mailto:{{ settings.contact_email | escape }}">{{ settings.contact_email | escape }}</a></p>{% endif %}
+      <div class="social-links">
+        {% if settings.social_instagram != blank %}<a href="{{ settings.social_instagram }}">Instagram</a>{% endif %}
+        {% if settings.social_facebook != blank %}<a href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="page-width footer-bottom">
+    <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.</small>
+    {% if shop.privacy_policy or shop.refund_policy or shop.shipping_policy %}
+      <div class="policy-links">
+        {% if shop.privacy_policy %}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{% endif %}
+        {% if shop.refund_policy %}<a href="{{ shop.refund_policy.url }}">Refunds</a>{% endif %}
+        {% if shop.shipping_policy %}<a href="{{ shop.shipping_policy.url }}">Shipping</a>{% endif %}
+      </div>
+    {% endif %}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Site footer",
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Healthy houseplants, clearly described and ready for their next home." },
+    { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer" }
+  ]
+}
+{% endschema %}
