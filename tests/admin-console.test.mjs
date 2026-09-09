@@ -1,60 +1,62 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { spawnSync } from 'node:child_process';
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), 'utf8');
 
-test('admin backend SQL protects public tables with RLS and owner-only writes', () => {
-  const path = 'supabase/lil-robb-admin.sql';
-  assert.ok(existsSync(join(root, path)), `missing ${path}`);
-  const sql = read(path);
-  for (const table of ['lil_robb_products', 'lil_robb_store_settings', 'lil_robb_admin_users']) {
-    assert.match(sql, new RegExp(`alter table public\\.${table} enable row level security`, 'i'));
+test('Cloudflare Worker backend exposes D1, secure admin sessions, CORS, and CRUD routes', () => {
+  for (const path of ['cloudflare/wrangler.jsonc', 'cloudflare/src/index.js', 'cloudflare/migrations/0001_initial.sql']) {
+    assert.ok(existsSync(join(root, path)), `missing ${path}`);
   }
-  assert.match(sql, /for select\s+to anon/i);
-  assert.match(sql, /is_published\s*=\s*true/i);
-  assert.match(sql, /for (insert|update|delete)[\s\S]*to authenticated/i);
-  assert.match(sql, /lil_robb_admin_users/i);
-  assert.match(sql, /claim_lil_robb_owner/i);
-  assert.match(sql, /security definer/i);
-  assert.match(sql, /set search_path = ''/i);
-  assert.match(sql, /revoke execute on function public\.claim_lil_robb_owner\(text\) from public, anon/i);
-  assert.match(sql, /grant execute on function public\.claim_lil_robb_owner\(text\) to authenticated/i);
-  assert.doesNotMatch(sql, /service_role|sb_secret_/i);
+  const worker = read('cloudflare/src/index.js');
+  const migration = read('cloudflare/migrations/0001_initial.sql');
+  const config = read('cloudflare/wrangler.jsonc');
+  assert.match(config, /"binding"\s*:\s*"DB"/);
+  assert.doesNotMatch(config, /ADMIN_PASSWORD\s*[:=]/, 'password secret must never be committed to Wrangler config');
+  assert.match(worker, /env\.DB/);
+  assert.match(worker, /env\.ADMIN_PASSWORD/);
+  assert.match(worker, /crypto\.getRandomValues|crypto\.randomUUID/);
+  assert.match(worker, /Authorization/i);
+  assert.match(worker, /Access-Control-Allow-Origin/);
+  assert.match(worker, /\/api\/catalog/);
+  assert.match(worker, /\/api\/settings/);
+  assert.match(worker, /\/api\/admin\/login/);
+  assert.match(worker, /\/api\/admin\/products/);
+  assert.match(migration, /create table if not exists products/i);
+  assert.match(migration, /create table if not exists store_settings/i);
+  assert.match(migration, /create table if not exists admin_sessions/i);
+  assert.doesNotMatch(worker, /service_role|supabase/i);
 });
 
-test('Pages build includes a dedicated admin console and pinned Supabase browser client', () => {
-  rmSync(join(root, 'preview/dist'), { recursive: true, force: true });
-  const result = spawnSync(process.execPath, ['scripts/build-preview.mjs'], { cwd: root, encoding: 'utf8' });
-  assert.equal(result.status, 0, result.stderr || result.stdout);
-
-  for (const path of ['preview/dist/config.js', 'preview/dist/admin/index.html', 'preview/dist/admin/admin.css', 'preview/dist/admin/admin.js']) {
-    assert.ok(existsSync(join(root, path)), `missing built ${path}`);
+test('Pages source includes a dedicated Cloudflare-backed admin console without Supabase client code', () => {
+  for (const path of ['preview/config.js', 'preview/admin/index.html', 'preview/admin/admin.css', 'preview/admin/admin.js']) {
+    assert.ok(existsSync(join(root, path)), `missing ${path}`);
   }
 
-  const html = read('preview/dist/admin/index.html');
+  const html = read('preview/admin/index.html');
+  const admin = read('preview/admin/admin.js');
   assert.match(html, /Admin Control Console/i);
-  assert.match(html, /type="email"/i);
   assert.match(html, /type="password"/i);
-  assert.match(html, /bootstrap/i);
   assert.match(html, /Inventory/i);
   assert.match(html, /Shipping/i);
   assert.match(html, /Coming Soon/i);
-  assert.match(html, /@supabase\/supabase-js@2\.116\.0/i);
+  assert.doesNotMatch(html, /supabase/i);
+  assert.match(admin, /\/api\/admin\/login/);
+  assert.match(admin, /sessionStorage/);
+  assert.match(admin, /Authorization/);
 });
 
-test('storefront supports live Supabase catalog and settings with static fallback', () => {
+test('storefront supports live Cloudflare catalog and settings with static fallback', () => {
   const html = read('preview/index.html');
   const app = read('preview/app.js');
   const config = read('preview/config.js');
   assert.match(html, /config\.js/i);
-  assert.match(html, /@supabase\/supabase-js@2\.116\.0/i);
-  assert.match(config, /LIL_ROBB_SUPABASE/);
-  assert.match(app, /lil_robb_products/);
-  assert.match(app, /lil_robb_store_settings/);
+  assert.doesNotMatch(html, /supabase/i);
+  assert.match(config, /LIL_ROBB_API/);
+  assert.match(app, /\/api\/catalog/);
+  assert.match(app, /\/api\/settings/);
   assert.match(app, /__LIL_ROBB_PRODUCTS__/);
   assert.match(app, /fallback/i);
 });

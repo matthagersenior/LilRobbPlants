@@ -49,7 +49,9 @@ test('Pages preview build emits all ten sample products and a coming-soon checko
     assert.ok(Number(product.price) > 0);
     assert.ok(Number.isInteger(product.inventory));
     assert.ok(product.light && product.watering && product.soil && product.growingConditions);
+    assert.match(product.imageUrl || '', /^https:\/\/commons\.wikimedia\.org\/wiki\/Special:Redirect\/file\//);
   }
+  assert.ok(existsSync(join(root, 'preview/dist/photo-credits.html')), 'missing built photo credits page');
 
   const html = read('preview/dist/index.html');
   assert.match(html, /Coming soon/i);
@@ -57,4 +59,19 @@ test('Pages preview build emits all ten sample products and a coming-soon checko
   assert.match(html, /free shipping.*\$75/i);
   assert.match(html, /local pickup/i);
   assert.doesNotMatch(html, /type=["']submit["'][^>]*>\s*(Pay|Checkout)/i);
+});
+
+test('Pages preview uses ten real openly licensed Wikimedia plant photos with attribution metadata', () => {
+  const manifestPath = join(root, 'preview/images/ATTRIBUTION.json');
+  assert.ok(existsSync(manifestPath), 'missing image attribution manifest');
+  const manifest = JSON.parse(read('preview/images/ATTRIBUTION.json'));
+  assert.equal(manifest.length, 10);
+  for (const item of manifest) {
+    assert.ok(item.productId && item.file && item.imageUrl && item.source && item.author && item.license, 'incomplete attribution entry');
+    assert.match(item.imageUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/Special:Redirect\/file\//);
+    assert.match(item.source, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+  }
+  const buildScript = read('scripts/build-preview.mjs');
+  assert.match(buildScript, /ATTRIBUTION\.json/);
+  assert.match(buildScript, /photo-credits\.html/);
 });
