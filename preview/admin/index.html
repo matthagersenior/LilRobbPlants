@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Lil Robb Plants — Admin Control Console</title>
+  <link rel="stylesheet" href="./admin.css">
+  <script src="../config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0"></script>
+  <script src="./admin.js" defer></script>
+</head>
+<body>
+  <header class="admin-header">
+    <a class="brand" href="../"><span>LR</span><strong>Lil Robb Plants</strong></a>
+    <div>
+      <a class="text-link" href="../">View storefront</a>
+      <button id="signOutButton" class="ghost" type="button" hidden>Sign out</button>
+    </div>
+  </header>
+
+  <main class="admin-shell">
+    <section class="intro">
+      <p class="eyebrow">Owner tools</p>
+      <h1>Admin Control Console</h1>
+      <p>Manage the launch catalog, inventory, prices, shipping examples, and Coming Soon state. Payments stay disabled until the Shopify upgrade.</p>
+      <p id="globalStatus" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="configMissing" class="panel warning" hidden>
+      <h2>Admin backend not connected</h2>
+      <p>The storefront can still use its embedded sample catalog, but secure admin login requires the dedicated Lil Robb Plants Supabase project.</p>
+    </section>
+
+    <section id="authPanel" class="panel auth-panel" hidden>
+      <div>
+        <p class="eyebrow">Secure owner access</p>
+        <h2>Sign in</h2>
+        <p>Use your owner email and password. New owner accounts can be created here, then claimed with the one-time bootstrap code.</p>
+      </div>
+      <form id="authForm" class="stack">
+        <label>Email<input id="emailInput" type="email" autocomplete="email" required></label>
+        <label>Password<input id="passwordInput" type="password" autocomplete="current-password" minlength="8" required></label>
+        <div class="button-row">
+          <button class="primary" type="submit">Sign in</button>
+          <button id="signUpButton" class="secondary" type="button">Create owner account</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="claimPanel" class="panel" hidden>
+      <p class="eyebrow">First-time setup</p>
+      <h2>Claim owner access</h2>
+      <p>Your account is authenticated but is not yet an owner. Enter the one-time bootstrap code generated during backend setup.</p>
+      <form id="claimForm" class="inline-form">
+        <label>Bootstrap code<input id="bootstrapInput" type="password" autocomplete="one-time-code" required></label>
+        <button class="primary" type="submit">Claim owner access</button>
+      </form>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="stats" aria-label="Store summary">
+        <article><span>Published plants</span><strong id="publishedStat">0</strong></article>
+        <article><span>Total inventory</span><strong id="inventoryStat">0</strong></article>
+        <article><span>Sold out</span><strong id="soldOutStat">0</strong></article>
+      </div>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div><p class="eyebrow">Store controls</p><h2>Shipping & Coming Soon</h2></div>
+        </div>
+        <form id="settingsForm" class="settings-grid">
+          <label class="wide">Announcement<input id="announcementInput" type="text" maxlength="240"></label>
+          <label>Standard shipping ($)<input id="shippingInput" type="number" min="0" step="0.01"></label>
+          <label>Free shipping at ($)<input id="freeShippingInput" type="number" min="0" step="0.01"></label>
+          <label class="check"><input id="pickupInput" type="checkbox"> Free local pickup</label>
+          <label class="check"><input id="comingSoonInput" type="checkbox"> Coming Soon banner</label>
+          <div class="wide"><button class="primary" type="submit">Save store settings</button></div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div><p class="eyebrow">Inventory</p><h2>Plants</h2></div>
+          <button id="newPlantButton" class="primary" type="button">Add plant</button>
+        </div>
+        <div id="productList" class="product-list"></div>
+      </section>
+
+      <section id="editorPanel" class="panel" hidden>
+        <div class="panel-head">
+          <div><p class="eyebrow">Catalog editor</p><h2 id="editorTitle">Add plant</h2></div>
+          <button id="cancelEditButton" class="ghost" type="button">Close</button>
+        </div>
+        <form id="productForm" class="product-form">
+          <label>URL handle<input id="productId" name="id" type="text" pattern="[a-z0-9-]+" required></label>
+          <label>Plant name<input name="title" type="text" required></label>
+          <label>Species<input name="species" type="text" required></label>
+          <label>Price ($)<input name="price" type="number" min="0" step="0.01" required></label>
+          <label>Inventory<input name="inventory" type="number" min="0" step="1" required></label>
+          <label>Difficulty<input name="difficulty" type="text"></label>
+          <label>Light<input name="light" type="text"></label>
+          <label>Watering<input name="watering" type="text"></label>
+          <label>Soil<input name="soil" type="text"></label>
+          <label>Humidity<input name="humidity" type="text"></label>
+          <label>Mature size<input name="mature_size" type="text"></label>
+          <label>Pet safety<input name="pet_safety" type="text"></label>
+          <label class="wide">Growing conditions<textarea name="growing_conditions" rows="3"></textarea></label>
+          <label class="wide">Description<textarea name="description" rows="4"></textarea></label>
+          <label class="wide">Care notes<textarea name="care_notes" rows="4"></textarea></label>
+          <label class="wide">Image URL (optional)<input name="image_url" type="url" placeholder="https://..."></label>
+          <label>Art variant<input name="art_variant" type="number" min="0" max="4" step="1" value="0"></label>
+          <label class="check"><input name="is_published" type="checkbox" checked> Published</label>
+          <div class="wide button-row">
+            <button class="primary" type="submit">Save plant</button>
+            <button id="duplicateButton" class="secondary" type="button" hidden>Duplicate</button>
+            <button id="archiveButton" class="secondary" type="button" hidden>Archive</button>
+            <button id="deleteButton" class="danger" type="button" hidden>Delete</button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
