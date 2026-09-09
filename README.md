@@ -29,6 +29,7 @@ The fastest routine is documented in `docs/owner-workflow.md`.
 - `config/` theme settings
 - `data/` ten example plant records
 - `docs/` Shopify setup and owner workflow
+- `cloudflare/` Worker + D1 backend for the temporary Pages owner console
 
 ## Verify locally
 
@@ -68,7 +69,9 @@ Until the Shopify store has its final domain and payment configuration, the repo
 
 The preview intentionally shows **Checkout coming soon** and does not collect payment information. It uses example shipping messaging only: **$10 standard flat-rate shipping, free shipping at $75+, and free local pickup**. Replace those examples with the final Shopify shipping configuration before enabling checkout.
 
-The Pages preview also includes a secure owner console at `/admin/`. Once the dedicated Supabase backend is connected, owner edits to products, inventory, pricing, shipping examples, and the Coming Soon state are reflected by the storefront without redeploying Pages. See `docs/admin-console.md`.
+The Pages preview also includes a secure owner console at `/admin/`. A Cloudflare Worker + D1 backend stores the editable catalog and launch settings without consuming another Supabase project. Once the public Worker URL is connected, owner edits to products, inventory, pricing, shipping examples, photos, and the Coming Soon state are reflected by the storefront without redeploying Pages. See `docs/admin-console.md`.
+
+The 10 starter plants use real openly licensed example photos served from Wikimedia Commons. `preview/images/ATTRIBUTION.json` records the file, creator, license, and source for each photo, and the Pages build publishes a visible `photo-credits.html` page. Replace the examples with Lil Robb Plants' own inventory photography as real plants are listed.
 
 Build locally with:
 
