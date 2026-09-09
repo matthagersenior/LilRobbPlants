@@ -1,0 +1,82 @@
+[
+  {
+    "productId": "swiss-cheese-plant",
+    "file": "Monstera_deliciosa_WPC.jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Monstera_deliciosa_WPC.jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Monstera_deliciosa_WPC.jpg",
+    "author": "WayneRay",
+    "license": "Public domain"
+  },
+  {
+    "productId": "golden-pothos",
+    "file": "Epipremnum_aureum_in_wild.jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Epipremnum_aureum_in_wild.jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Epipremnum_aureum_in_wild.jpg",
+    "author": "PlainVector",
+    "license": "CC0 1.0"
+  },
+  {
+    "productId": "snake-plant",
+    "file": "Snake_plant_-Dracaena_trifasciata.jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Snake_plant_-Dracaena_trifasciata.jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Snake_plant_-Dracaena_trifasciata.jpg",
+    "author": "Santhosh Notagar99",
+    "license": "CC0 1.0"
+  },
+  {
+    "productId": "zz-plant",
+    "file": "Millonaria_(Zamioculcas_zamiifolia).jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Millonaria_(Zamioculcas_zamiifolia).jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Millonaria_(Zamioculcas_zamiifolia).jpg",
+    "author": "Muago",
+    "license": "CC0 1.0"
+  },
+  {
+    "productId": "heartleaf-philodendron",
+    "file": "Philodendron_hederaceum_(25177319755).jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Philodendron_hederaceum_(25177319755).jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Philodendron_hederaceum_(25177319755).jpg",
+    "author": "Dick Culbert",
+    "license": "CC BY 2.0"
+  },
+  {
+    "productId": "spider-plant",
+    "file": "Spider_plants_(Chlorophytum_comosum).jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Spider_plants_(Chlorophytum_comosum).jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Spider_plants_(Chlorophytum_comosum).jpg",
+    "author": "Philipola",
+    "license": "CC0 1.0"
+  },
+  {
+    "productId": "peace-lily",
+    "file": "Spathiphyllum_wallisii.jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Spathiphyllum_wallisii.jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Spathiphyllum_wallisii.jpg",
+    "author": "Biotaman",
+    "license": "Public domain"
+  },
+  {
+    "productId": "rubber-plant",
+    "file": "Ficus_elastica_343432165.jpg",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ficus_elastica_343432165.jpg?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Ficus_elastica_343432165.jpg",
+    "author": "Eric Schmidt",
+    "license": "CC0 1.0"
+  },
+  {
+    "productId": "fiddle-leaf-fig",
+    "file": "Ficus_lyrata_-_Copenhagen_Botanical_Garden_-_DSC07378.JPG",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ficus_lyrata_-_Copenhagen_Botanical_Garden_-_DSC07378.JPG?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Ficus_lyrata_-_Copenhagen_Botanical_Garden_-_DSC07378.JPG",
+    "author": "Daderot",
+    "license": "CC0 1.0"
+  },
+  {
+    "productId": "chinese-money-plant",
+    "file": "Pilea_peperomioides_-_Botanischer_Garten,_Dresden,_Germany_-_DSC08613.JPG",
+    "imageUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pilea_peperomioides_-_Botanischer_Garten,_Dresden,_Germany_-_DSC08613.JPG?width=1200",
+    "source": "https://commons.wikimedia.org/wiki/File:Pilea_peperomioides_-_Botanischer_Garten,_Dresden,_Germany_-_DSC08613.JPG",
+    "author": "Daderot",
+    "license": "CC0 1.0"
+  }
+]
