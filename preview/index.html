@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lil Robb Plants — a simple houseplant shop preview with care information, availability, and example shipping.">
+  <title>Lil Robb Plants — Houseplants made simple</title>
+  <link rel="stylesheet" href="./styles.css">
+  <!--PRODUCT_DATA-->
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#shop">Skip to plants</a>
+  <header class="site-header">
+    <div class="announcement" role="status">
+      <strong>Coming soon:</strong> online ordering is not open yet. Browse the launch collection and build a cart now.
+    </div>
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Lil Robb Plants home">
+        <span class="brand-mark" aria-hidden="true">LR</span>
+        <span><b>Lil Robb Plants</b><small>Houseplants, simply cared for.</small></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#shop">Shop</a>
+        <a href="#care">Plant care</a>
+        <a href="#shipping">Shipping</a>
+        <button class="cart-button" id="cartButton" type="button" aria-controls="cartPanel" aria-expanded="false">
+          Cart <span id="cartCount" aria-label="0 items">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Plants that fit real homes</p>
+        <h1 id="hero-title">Find a plant you’ll know how to keep happy.</h1>
+        <p>See the species, price, example inventory, and practical care details before you choose. Checkout will move to Shopify when the store opens.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#shop">Browse plants</a>
+          <a class="button secondary" href="#shipping">See shipping examples</a>
+        </div>
+      </div>
+      <div class="hero-plant" aria-hidden="true">
+        <div class="pot"></div>
+        <span class="leaf leaf-a"></span><span class="leaf leaf-b"></span><span class="leaf leaf-c"></span><span class="leaf leaf-d"></span><span class="leaf leaf-e"></span>
+      </div>
+    </section>
+
+    <section class="shipping-strip" id="shipping" aria-labelledby="shipping-title">
+      <div><span aria-hidden="true">📦</span><strong id="shipping-title">$10 standard shipping</strong><small>Example flat rate per order</small></div>
+      <div><span aria-hidden="true">🌿</span><strong>Free shipping at $75+</strong><small>Example launch threshold</small></div>
+      <div><span aria-hidden="true">📍</span><strong>Free local pickup</strong><small>When pickup is enabled</small></div>
+      <p>These are preview examples, not live Shopify rates. Final shipping is configured in Shopify before checkout opens.</p>
+    </section>
+
+    <section class="shop-section" id="shop" aria-labelledby="shop-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Launch collection</p><h2 id="shop-title">Popular houseplants</h2></div>
+        <label class="search-box">Search plants
+          <input id="searchInput" type="search" placeholder="Try “low light” or “Monstera”" autocomplete="off">
+        </label>
+      </div>
+      <div class="filter-row" aria-label="Filter plants">
+        <button class="filter active" type="button" data-filter="all">All plants</button>
+        <button class="filter" type="button" data-filter="easy">Easy care</button>
+        <button class="filter" type="button" data-filter="low-light">Low light</button>
+        <button class="filter" type="button" data-filter="pet-friendly">Pet friendly</button>
+      </div>
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+      <p id="emptyState" class="empty-state" hidden>No plants match that search. Try a broader term or choose “All plants.”</p>
+    </section>
+
+    <section class="care-section" id="care" aria-labelledby="care-title">
+      <div>
+        <p class="eyebrow">Care at a glance</p>
+        <h2 id="care-title">No mystery labels.</h2>
+        <p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>
+      </div>
+      <div class="care-list" aria-label="Care information included on product cards">
+        <span>☀️ Light</span><span>💧 Water</span><span>🪴 Soil</span><span>🌡️ Growing conditions</span>
+      </div>
+    </section>
+  </main>
+
+  <aside id="cartPanel" class="cart-panel" hidden aria-labelledby="cartTitle">
+    <div class="cart-head">
+      <div><p class="eyebrow">Saved for launch</p><h2 id="cartTitle">Your cart</h2></div>
+      <button id="closeCart" class="icon-button" type="button" aria-label="Close cart">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-summary">
+      <div><span>Plant subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div><span>Shipping</span><span>Calculated when Shopify checkout opens</span></div>
+    </div>
+    <button class="button primary full" type="button" disabled aria-describedby="checkoutNote">Checkout coming soon</button>
+    <p id="checkoutNote" class="fine-print">Payments are intentionally disabled in this preview. Your cart stays on this device so you can revisit it later.</p>
+  </aside>
+  <div id="scrim" class="scrim" hidden></div>
+
+  <dialog id="productDialog" class="product-dialog">
+    <button id="closeDialog" class="icon-button dialog-close" type="button" aria-label="Close plant details">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <footer>
+    <strong>Lil Robb Plants</strong>
+    <p>Temporary GitHub Pages preview. Shopify checkout, payment methods, and final shipping rates will be enabled for the full store launch.</p>
+  </footer>
+</body>
+</html>

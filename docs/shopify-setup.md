@@ -85,3 +85,10 @@ Preview the unpublished theme in Shopify Admin. Confirm products collection page
 ## 9. Customize the natural theme
 
 In **Online Store > Themes > Customize** the owner can change the logo color palette low-stock threshold shipping note homepage sections selected collections images headlines and newsletter copy without editing Liquid.
+
+## Suggested launch shipping examples
+
+For a simple starting point, the GitHub Pages preview displays **$10 standard flat-rate shipping**, **free shipping on orders $75+**, and **free local pickup**. These are examples, not live rates. Configure the real values in Shopify under **Settings → Shipping and delivery** (or the equivalent shipping options by market experience when available to the store). Shopify supports flat rates, order-value conditions, free-shipping thresholds, transit-time messaging, local pickup, and carrier-calculated rates.
+
+Keep payment methods disabled while the site is in Coming Soon mode. When the store is ready, activate the chosen Shopify payment methods, test checkout and shipping, and then replace the preview-only Coming Soon messaging with the live Shopify storefront/domain.
+

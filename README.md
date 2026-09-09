@@ -59,3 +59,18 @@ The store domain above is a placeholder. Do not commit store tokens or `.env` se
 `data/sample-products.csv` uses Shopify's current product CSV column names and includes the ten demo plants. The price inventory weight and care values are examples for setup and testing. Replace them with the owner's real plant data before selling.
 
 Create the plant metafield definitions before importing the metafield columns. See `docs/shopify-setup.md`.
+
+## Temporary GitHub Pages preview
+
+Until the Shopify store has its final domain and payment configuration, the repository includes a static preview built from the same 10 sample plants. After GitHub Pages is enabled with **Settings → Pages → Source: GitHub Actions**, pushes to `main` deploy `preview/dist` to:
+
+`https://matthagersenior.github.io/LilRobbPlants/`
+
+The preview intentionally shows **Checkout coming soon** and does not collect payment information. It uses example shipping messaging only: **$10 standard flat-rate shipping, free shipping at $75+, and free local pickup**. Replace those examples with the final Shopify shipping configuration before enabling checkout.
+
+Build locally with:
+
+```bash
+npm run build:preview
+```
+
