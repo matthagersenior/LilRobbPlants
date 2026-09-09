@@ -32,6 +32,23 @@ if (existsSync(join(root, 'layout/theme.liquid'))) {
   }
 }
 
+const sectionsDir = join(root, 'sections');
+if (existsSync(sectionsDir)) {
+  for (const file of readdirSync(sectionsDir).filter((name) => name.endsWith('.liquid'))) {
+    const source = read(`sections/${file}`);
+    const match = source.match(/{%\s*schema\s*%}([\s\S]*?){%\s*endschema\s*%}/);
+    if (match) {
+      try { JSON.parse(match[1].trim()); } catch (error) { errors.push(`Invalid section schema sections/${file}: ${error.message}`); }
+    }
+  }
+  for (const file of readdirSync(sectionsDir).filter((name) => name.endsWith('-group.json'))) {
+    const group = JSON.parse(read(`sections/${file}`));
+    for (const [id, section] of Object.entries(group.sections || {})) {
+      if (!existsSync(join(root, 'sections', `${section.type}.liquid`))) errors.push(`sections/${file} entry ${id} references missing sections/${section.type}.liquid`);
+    }
+  }
+}
+
 const templatesDir = join(root, 'templates');
 if (existsSync(templatesDir)) {
   for (const file of readdirSync(templatesDir).filter((name) => name.endsWith('.json'))) {

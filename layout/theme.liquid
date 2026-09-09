@@ -22,6 +22,8 @@
         --color-focus: {{ settings.color_focus }};
       }
     </style>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
   </head>
   <body>

@@ -1,0 +1,1 @@
+{% assign price_variant = variant | default: product.selected_or_first_available_variant %}<span class="price">{{ price_variant.price | money }}</span>
