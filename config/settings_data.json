@@ -1,0 +1,14 @@
+{
+  "current": {
+    "color_surface": "#F7F3EA",
+    "color_raised": "#FFFFFF",
+    "color_ink": "#1F3A2D",
+    "color_muted": "#6E5B48",
+    "color_accent": "#2D5A3C",
+    "color_focus": "#375D3B",
+    "logo_width": 150,
+    "low_stock_threshold": 4,
+    "shipping_message": "Shipping and pickup options are shown at checkout."
+  },
+  "presets": {}
+}
