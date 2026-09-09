@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
@@ -68,9 +68,19 @@ const products = rawProducts.map((row, index) => ({
 
 rmSync(outDir, { recursive: true, force: true });
 mkdirSync(outDir, { recursive: true });
-for (const file of ['styles.css', 'app.js']) {
+for (const file of ['styles.css', 'app.js', 'config.js']) {
   copyFileSync(join(sourceDir, file), join(outDir, file));
 }
+function copyDir(from, to) {
+  mkdirSync(to, { recursive: true });
+  for (const name of readdirSync(from)) {
+    const src = join(from, name);
+    const dest = join(to, name);
+    if (statSync(src).isDirectory()) copyDir(src, dest);
+    else copyFileSync(src, dest);
+  }
+}
+copyDir(join(sourceDir, 'admin'), join(outDir, 'admin'));
 const sourceHtml = readFileSync(join(sourceDir, 'index.html'), 'utf8');
 const embeddedProducts = `<script>window.__LIL_ROBB_PRODUCTS__ = ${JSON.stringify(products).replace(/</g, '\\u003c')};</script>`;
 writeFileSync(join(outDir, 'index.html'), sourceHtml.replace('<!--PRODUCT_DATA-->', embeddedProducts));

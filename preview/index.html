@@ -7,13 +7,15 @@
   <title>Lil Robb Plants — Houseplants made simple</title>
   <link rel="stylesheet" href="./styles.css">
   <!--PRODUCT_DATA-->
+  <script src="./config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0"></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#shop">Skip to plants</a>
   <header class="site-header">
-    <div class="announcement" role="status">
-      <strong>Coming soon:</strong> online ordering is not open yet. Browse the launch collection and build a cart now.
+    <div id="announcementBar" class="announcement" role="status">
+      <strong>Coming soon:</strong> <span id="announcementText">online ordering is not open yet. Browse the launch collection and build a cart now.</span>
     </div>
     <div class="nav-shell">
       <a class="brand" href="#top" aria-label="Lil Robb Plants home">
@@ -49,9 +51,9 @@
     </section>
 
     <section class="shipping-strip" id="shipping" aria-labelledby="shipping-title">
-      <div><span aria-hidden="true">📦</span><strong id="shipping-title">$10 standard shipping</strong><small>Example flat rate per order</small></div>
-      <div><span aria-hidden="true">🌿</span><strong>Free shipping at $75+</strong><small>Example launch threshold</small></div>
-      <div><span aria-hidden="true">📍</span><strong>Free local pickup</strong><small>When pickup is enabled</small></div>
+      <div><span aria-hidden="true">📦</span><strong id="standardShippingText">$10 standard shipping</strong><small>Example flat rate per order</small></div>
+      <div><span aria-hidden="true">🌿</span><strong id="freeShippingText">Free shipping at $75+</strong><small>Example launch threshold</small></div>
+      <div id="pickupCard"><span aria-hidden="true">📍</span><strong>Free local pickup</strong><small>When pickup is enabled</small></div>
       <p>These are preview examples, not live Shopify rates. Final shipping is configured in Shopify before checkout opens.</p>
     </section>
 
@@ -94,7 +96,7 @@
       <div><span>Plant subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
       <div><span>Shipping</span><span>Calculated when Shopify checkout opens</span></div>
     </div>
-    <button class="button primary full" type="button" disabled aria-describedby="checkoutNote">Checkout coming soon</button>
+    <button id="checkoutButton" class="button primary full" type="button" disabled aria-describedby="checkoutNote">Checkout coming soon</button>
     <p id="checkoutNote" class="fine-print">Payments are intentionally disabled in this preview. Your cart stays on this device so you can revisit it later.</p>
   </aside>
   <div id="scrim" class="scrim" hidden></div>
@@ -107,6 +109,7 @@
   <footer>
     <strong>Lil Robb Plants</strong>
     <p>Temporary GitHub Pages preview. Shopify checkout, payment methods, and final shipping rates will be enabled for the full store launch.</p>
+    <p><a href="./admin/">Owner login</a></p>
   </footer>
 </body>
 </html>

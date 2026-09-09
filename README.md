@@ -68,9 +68,10 @@ Until the Shopify store has its final domain and payment configuration, the repo
 
 The preview intentionally shows **Checkout coming soon** and does not collect payment information. It uses example shipping messaging only: **$10 standard flat-rate shipping, free shipping at $75+, and free local pickup**. Replace those examples with the final Shopify shipping configuration before enabling checkout.
 
+The Pages preview also includes a secure owner console at `/admin/`. Once the dedicated Supabase backend is connected, owner edits to products, inventory, pricing, shipping examples, and the Coming Soon state are reflected by the storefront without redeploying Pages. See `docs/admin-console.md`.
+
 Build locally with:
 
 ```bash
 npm run build:preview
 ```
-
