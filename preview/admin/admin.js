@@ -1,100 +1,91 @@
-const config = window.LIL_ROBB_SUPABASE || {};
-const configured = Boolean(config.url && config.publishableKey && window.supabase?.createClient);
-const client = configured ? window.supabase.createClient(config.url, config.publishableKey) : null;
+const config = window.LIL_ROBB_API || {};
+const baseUrl = String(config.baseUrl || '').replace(/\/$/, '');
+const configured = /^https?:\/\//.test(baseUrl);
+const TOKEN_KEY = 'lilRobbAdminToken';
 
 const els = Object.fromEntries([...document.querySelectorAll('[id]')].map((el) => [el.id, el]));
+let token = sessionStorage.getItem(TOKEN_KEY) || '';
 let products = [];
 let settings = null;
 let editingId = null;
 
-function status(message, type = '') {
-  els.globalStatus.textContent = message || '';
-  els.globalStatus.className = `status ${type}`.trim();
+const show = (el, visible = true) => { el.hidden = !visible; };
+const status = (message = '', type = '') => { els.globalStatus.textContent = message; els.globalStatus.className = `status ${type}`.trim(); };
+const normalizeError = (error) => error?.message || String(error || 'Unexpected error');
+const slugify = (value) => String(value || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+async function api(path, { method = 'GET', body, admin = false } = {}) {
+  if (!configured) throw new Error('Cloudflare Worker API URL is not configured yet.');
+  const headers = { Accept: 'application/json' };
+  if (body !== undefined) headers['Content-Type'] = 'application/json';
+  if (admin && token) headers.Authorization = `Bearer ${token}`;
+  const response = await fetch(`${baseUrl}${path}`, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+  const payload = await response.json().catch(() => ({}));
+  if (response.status === 401 && admin) {
+    token = '';
+    sessionStorage.removeItem(TOKEN_KEY);
+    routeAuth();
+  }
+  if (!response.ok) throw new Error(payload.error || `Request failed (${response.status})`);
+  return payload;
 }
 
-function show(el, visible = true) { el.hidden = !visible; }
-function slugify(value) { return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80); }
-function normalizeError(error) { return error?.message || String(error || 'Unexpected error'); }
+function routeAuth() {
+  show(els.configMissing, !configured);
+  show(els.authPanel, configured && !token);
+  show(els.dashboard, configured && Boolean(token));
+  show(els.signOutButton, configured && Boolean(token));
+}
 
 async function init() {
+  routeAuth();
   if (!configured) {
-    show(els.configMissing);
-    show(els.authPanel, false);
-    status('The secure backend has not been connected yet.');
+    status('Storefront remains available with its embedded catalog. Add the Worker URL after Cloudflare deployment.');
     return;
   }
-  const { data, error } = await client.auth.getSession();
-  if (error) status(normalizeError(error), 'error');
-  await routeSession(data?.session || null);
-  client.auth.onAuthStateChange((_event, session) => { setTimeout(() => routeSession(session), 0); });
-}
-
-async function routeSession(session) {
-  show(els.authPanel, !session);
-  show(els.signOutButton, Boolean(session));
-  show(els.claimPanel, false);
-  show(els.dashboard, false);
-  if (!session) { status(''); return; }
-
-  const { data, error } = await client.from('lil_robb_admin_users').select('role').eq('user_id', session.user.id).maybeSingle();
-  if (error) { status(`Owner check failed: ${normalizeError(error)}`, 'error'); return; }
-  if (!data) {
-    show(els.claimPanel);
-    status('Signed in. Claim owner access to open the console.');
-    return;
+  if (token) {
+    try { await loadDashboard(); }
+    catch (error) {
+      if (token) status(normalizeError(error), 'error');
+    }
   }
-  show(els.dashboard);
-  await loadDashboard();
 }
 
 els.authForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   status('Signing in…');
-  const { error } = await client.auth.signInWithPassword({ email: els.emailInput.value.trim(), password: els.passwordInput.value });
-  if (error) status(normalizeError(error), 'error');
-});
-
-els.signUpButton.addEventListener('click', async () => {
-  const email = els.emailInput.value.trim();
-  const password = els.passwordInput.value;
-  if (!email || password.length < 8) { status('Enter an email and a password with at least 8 characters.', 'error'); return; }
-  status('Creating account…');
-  const { data, error } = await client.auth.signUp({ email, password });
-  if (error) { status(normalizeError(error), 'error'); return; }
-  status(data.session ? 'Account created and signed in.' : 'Account created. Check your email if confirmation is required, then sign in.', 'success');
+  try {
+    const data = await api('/api/admin/login', { method: 'POST', body: { password: els.passwordInput.value } });
+    token = data.token;
+    sessionStorage.setItem(TOKEN_KEY, token);
+    els.passwordInput.value = '';
+    routeAuth();
+    await loadDashboard();
+  } catch (error) { status(normalizeError(error), 'error'); }
 });
 
 els.signOutButton.addEventListener('click', async () => {
-  await client.auth.signOut();
+  try { if (token) await api('/api/admin/logout', { method: 'POST', admin: true }); } catch {}
+  token = '';
   products = [];
   settings = null;
-});
-
-els.claimForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  status('Checking bootstrap code…');
-  const { data, error } = await client.rpc('claim_lil_robb_owner', { p_code: els.bootstrapInput.value });
-  if (error) { status(normalizeError(error), 'error'); return; }
-  if (!data) { status('That bootstrap code is invalid, already used, or an owner already exists.', 'error'); return; }
-  els.bootstrapInput.value = '';
-  status('Owner access claimed.', 'success');
-  const { data: sessionData } = await client.auth.getSession();
-  await routeSession(sessionData.session);
+  sessionStorage.removeItem(TOKEN_KEY);
+  routeAuth();
+  status('Signed out.', 'success');
 });
 
 async function loadDashboard() {
   status('Loading store data…');
-  const [productResult, settingsResult] = await Promise.all([
-    client.from('lil_robb_products').select('*').order('title'),
-    client.from('lil_robb_store_settings').select('*').eq('id', true).maybeSingle()
+  const [productData, settingsData] = await Promise.all([
+    api('/api/admin/products', { admin: true }),
+    api('/api/admin/settings', { admin: true })
   ]);
-  if (productResult.error) { status(normalizeError(productResult.error), 'error'); return; }
-  if (settingsResult.error) { status(normalizeError(settingsResult.error), 'error'); return; }
-  products = productResult.data || [];
-  settings = settingsResult.data || {};
+  products = productData;
+  settings = settingsData;
   renderStats();
   renderProducts();
   renderSettings();
+  routeAuth();
   status('Store data loaded.', 'success');
 }
 
@@ -129,15 +120,14 @@ els.settingsForm.addEventListener('submit', async (event) => {
     standard_shipping: Number(els.shippingInput.value || 0),
     free_shipping_threshold: Number(els.freeShippingInput.value || 0),
     local_pickup_enabled: els.pickupInput.checked,
-    coming_soon: els.comingSoonInput.checked,
-    updated_at: new Date().toISOString()
+    coming_soon: els.comingSoonInput.checked
   };
   status('Saving store settings…');
-  const { data, error } = await client.from('lil_robb_store_settings').update(payload).eq('id', true).select().single();
-  if (error) { status(normalizeError(error), 'error'); return; }
-  settings = data;
-  renderSettings();
-  status('Store settings saved.', 'success');
+  try {
+    settings = await api('/api/admin/settings', { method: 'PUT', body: payload, admin: true });
+    renderSettings();
+    status('Store settings saved.', 'success');
+  } catch (error) { status(normalizeError(error), 'error'); }
 });
 
 els.newPlantButton.addEventListener('click', () => openEditor());
@@ -155,7 +145,7 @@ function openEditor(product = null) {
   if (product) {
     for (const [key, value] of Object.entries(product)) {
       const field = els.productForm.elements.namedItem(key);
-      if (!field || ['is_published'].includes(key)) continue;
+      if (!field || key === 'is_published') continue;
       field.value = value ?? '';
     }
   }
@@ -175,56 +165,59 @@ els.productForm.elements.title.addEventListener('input', (event) => {
   if (!editingId && !els.productId.value) els.productId.value = slugify(event.target.value);
 });
 
-els.productForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
+function formProduct() {
   const form = new FormData(els.productForm);
   const payload = Object.fromEntries(form.entries());
   payload.price = Number(payload.price || 0);
   payload.inventory = Number(payload.inventory || 0);
   payload.art_variant = Number(payload.art_variant || 0);
   payload.is_published = els.productForm.elements.is_published.checked;
-  payload.updated_at = new Date().toISOString();
+  return payload;
+}
+
+els.productForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const payload = formProduct();
   status('Saving plant…');
-  const query = editingId
-    ? client.from('lil_robb_products').update(payload).eq('id', editingId)
-    : client.from('lil_robb_products').insert(payload);
-  const { error } = await query;
-  if (error) { status(normalizeError(error), 'error'); return; }
-  status('Plant saved.', 'success');
-  closeEditor();
-  await loadDashboard();
+  try {
+    if (editingId) await api(`/api/admin/products/${encodeURIComponent(editingId)}`, { method: 'PUT', body: payload, admin: true });
+    else await api('/api/admin/products', { method: 'POST', body: payload, admin: true });
+    status('Plant saved.', 'success');
+    closeEditor();
+    await loadDashboard();
+  } catch (error) { status(normalizeError(error), 'error'); }
 });
 
 els.duplicateButton.addEventListener('click', async () => {
   const source = products.find((p) => p.id === editingId);
   if (!source) return;
-  const { created_at, updated_at, ...copy } = source;
-  copy.id = uniqueCopyId(source.id);
-  copy.title = `${source.title} copy`;
-  copy.is_published = false;
+  const copy = { ...source, id: uniqueCopyId(source.id), title: `${source.title} copy`, is_published: false };
+  delete copy.created_at; delete copy.updated_at;
   status('Duplicating plant…');
-  const { error } = await client.from('lil_robb_products').insert(copy);
-  if (error) { status(normalizeError(error), 'error'); return; }
-  closeEditor();
-  await loadDashboard();
+  try {
+    await api('/api/admin/products', { method: 'POST', body: copy, admin: true });
+    closeEditor(); await loadDashboard();
+  } catch (error) { status(normalizeError(error), 'error'); }
 });
 
 els.archiveButton.addEventListener('click', async () => {
   const source = products.find((p) => p.id === editingId);
   if (!source) return;
-  const { error } = await client.from('lil_robb_products').update({ is_published: !source.is_published, updated_at: new Date().toISOString() }).eq('id', source.id);
-  if (error) { status(normalizeError(error), 'error'); return; }
-  closeEditor();
-  await loadDashboard();
+  status(source.is_published ? 'Archiving plant…' : 'Publishing plant…');
+  try {
+    await api(`/api/admin/products/${encodeURIComponent(source.id)}`, { method: 'PUT', body: { ...source, is_published: !source.is_published }, admin: true });
+    closeEditor(); await loadDashboard();
+  } catch (error) { status(normalizeError(error), 'error'); }
 });
 
 els.deleteButton.addEventListener('click', async () => {
   const source = products.find((p) => p.id === editingId);
   if (!source || !confirm(`Delete ${source.title}? This cannot be undone.`)) return;
-  const { error } = await client.from('lil_robb_products').delete().eq('id', source.id);
-  if (error) { status(normalizeError(error), 'error'); return; }
-  closeEditor();
-  await loadDashboard();
+  status('Deleting plant…');
+  try {
+    await api(`/api/admin/products/${encodeURIComponent(source.id)}`, { method: 'DELETE', admin: true });
+    closeEditor(); await loadDashboard();
+  } catch (error) { status(normalizeError(error), 'error'); }
 });
 
 function uniqueCopyId(id) {
