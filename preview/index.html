@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The Robb Store — a simple houseplant shop preview with care information, availability, and example shipping.">
   <title>The Robb Store — Houseplants made simple</title>
+  <link rel="icon" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon.webp?v=1789067992">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./brand-refresh.css">
   <!--PRODUCT_DATA-->
+  <script src="./image-assets.js"></script>
   <script src="./config.js"></script>
   <script src="./app.js" defer></script>
 </head>
@@ -18,8 +21,8 @@
     </div>
     <div class="nav-shell">
       <a class="brand" href="#top" aria-label="The Robb Store home">
-        <span class="brand-mark" aria-hidden="true">TR</span>
-        <span><b>The Robb Store</b><small>Houseplants, simply cared for.</small></span>
+        <img class="brand-logo" src="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987" alt="The Robb Store">
+        <span class="brand-wordmark"><b>The Robb Store</b><small>Houseplants, simply cared for.</small></span>
       </a>
       <nav aria-label="Primary navigation">
         <a href="#shop">Shop</a>
@@ -43,9 +46,8 @@
           <a class="button secondary" href="#shipping">See shipping examples</a>
         </div>
       </div>
-      <div class="hero-plant" aria-hidden="true">
-        <div class="pot"></div>
-        <span class="leaf leaf-a"></span><span class="leaf leaf-b"></span><span class="leaf leaf-c"></span><span class="leaf leaf-d"></span><span class="leaf leaf-e"></span>
+      <div class="hero-brand">
+        <img src="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987" alt="The Robb Store botanical logo">
       </div>
     </section>
 
@@ -69,6 +71,7 @@
         <button class="filter" type="button" data-filter="low-light">Low light</button>
         <button class="filter" type="button" data-filter="pet-friendly">Pet friendly</button>
       </div>
+      <p class="image-disclosure"><strong>Image notice:</strong> Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.</p>
       <div id="productGrid" class="product-grid" aria-live="polite"></div>
       <p id="emptyState" class="empty-state" hidden>No plants match that search. Try a broader term or choose “All plants.”</p>
     </section>
@@ -106,9 +109,10 @@
   </dialog>
 
   <footer>
+    <img class="footer-logo" src="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987" alt="The Robb Store">
     <strong>The Robb Store</strong>
     <p>Temporary GitHub Pages preview. Shopify checkout, payment methods, and final shipping rates will be enabled for the full store launch.</p>
-    <p><a href="./admin/">Owner login</a> · <a href="./photo-credits.html">Photo credits</a></p>
+    <p><a href="./admin/">Owner login</a> · <a href="./photo-credits.html">Image notice</a></p>
   </footer>
 </body>
 </html>
