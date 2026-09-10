@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_accent }}">
-    <link rel="icon" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon.webp?v=1789067992">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="icon" type="image/png" sizes="512x512" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon-512.png?v=1789068930">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-apple-touch-icon.png?v=1789068933">
     <link rel="canonical" href="{{ canonical_url }}">
     <title>
       {{ page_title }}
@@ -12,7 +14,35 @@
       {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
-    {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+    {% assign social_description = page_description | default: shop.description | default: 'Houseplants with clear care information and straightforward shopping details.' %}
+    {% assign social_image = page_image %}
+    <meta name="description" content="{{ social_description | escape }}">
+    <meta property="og:site_name" content="{{ shop.name | escape }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+    <meta property="og:description" content="{{ social_description | escape }}">
+    {% if request.page_type == 'product' %}<meta property="og:type" content="product">{% else %}<meta property="og:type" content="website">{% endif %}
+    {% if social_image != blank %}
+      <meta property="og:image" content="https:{{ social_image | image_url: width: 1200 }}">
+      <meta name="twitter:image" content="https:{{ social_image | image_url: width: 1200 }}">
+    {% else %}
+      <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987">
+      <meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987">
+    {% endif %}
+    <meta property="og:image:alt" content="{{ page_title | default: shop.name | escape }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | default: shop.name | escape }}">
+    <meta name="twitter:description" content="{{ social_description | escape }}">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | json }},
+      "logo": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987",
+      "image": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987"
+    }
+    </script>
     <style>
       :root {
         --color-surface: {{ settings.color_surface }};
