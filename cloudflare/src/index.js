@@ -119,6 +119,13 @@ async function ensureDatabase(db) {
     });
     await db.batch(statements);
   }
+
+  // Upgrade only original placeholder/Wikimedia images; never replace merchant-supplied photography.
+  const representativeImageUpdates = INITIAL_PRODUCTS.map((product) =>
+    db.prepare("UPDATE products SET image_url = ?, updated_at = ? WHERE id = ? AND (image_url = '' OR image_url LIKE 'https://commons.wikimedia.org/%')")
+      .bind(product.image_url, now, product.id)
+  );
+  await db.batch(representativeImageUpdates);
 }
 
 async function handleLogin(request, env, cors) {

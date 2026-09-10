@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_accent }}">
+    <link rel="icon" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon.webp?v=1789067992">
     <link rel="canonical" href="{{ canonical_url }}">
     <title>
       {{ page_title }}
@@ -23,6 +24,7 @@
       }
     </style>
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'brand-refresh.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
   </head>

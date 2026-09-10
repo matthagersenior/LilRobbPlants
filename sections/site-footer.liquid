@@ -1,7 +1,7 @@
 <footer class="site-footer">
   <div class="page-width footer-grid">
     <div>
-      <a class="brand brand--footer" href="{{ routes.root_url }}"><span class="brand__mark" aria-hidden="true">{% render 'icon-leaf' %}</span><span class="brand__text">{{ shop.name | escape }}</span></a>
+      <a class="brand brand--footer" href="{{ routes.root_url }}"><img class="footer-brand-logo" src="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987" alt="{{ shop.name | escape }}" width="220" height="147"><span class="visually-hidden">{{ shop.name | escape }}</span></a>
       <p class="footer-copy">{{ section.settings.tagline | escape }}</p>
     </div>
     {% if section.settings.menu != blank %}

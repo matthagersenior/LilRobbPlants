@@ -13,7 +13,8 @@
           {% endfor %}
         </div>
       {% else %}
-        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% render 'representative-product-image', product: product, image_class: 'representative-product-image', loading: 'eager' %}
+        <p class="representative-note">Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.</p>
       {% endif %}
     </div>
 

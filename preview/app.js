@@ -26,6 +26,9 @@ const dialogContent = document.querySelector('#dialogContent');
 
 const money = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
 const esc = (value = '') => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+const representativeAssets = window.THE_ROBB_STORE_ASSETS || {};
+const representativeDisclosure = representativeAssets.disclosure || 'Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.';
+const imageFor = (product) => representativeAssets.products?.[product.id] || product.imageUrl || '';
 
 function inventoryLabel(product) {
   if (product.inventory <= 0) return ['Sold out', 'out'];
@@ -50,19 +53,22 @@ function renderProducts() {
   grid.innerHTML = shown.map((product) => {
     const [label, inventoryClass] = inventoryLabel(product);
     const disabled = product.inventory <= 0 ? 'disabled' : '';
-    const art = product.imageUrl
-      ? `<img class="product-photo" src="${esc(product.imageUrl)}" alt="${esc(product.title)}" loading="lazy">`
+    const imageUrl = imageFor(product);
+    const art = imageUrl
+      ? `<img class="product-photo" src="${esc(imageUrl)}" alt="Representative image of ${esc(product.title)}" loading="lazy">`
       : '';
     return `
       <article class="product-card">
         <div class="product-art" data-art="${product.artVariant}" role="img" aria-label="${art ? '' : `Decorative botanical illustration for ${esc(product.title)}`}">
           ${art}
+          ${art ? '<span class="representative-badge">Representative image</span>' : ''}
           <span class="inventory ${inventoryClass}">${esc(label)}</span>
         </div>
         <div class="card-body">
           <div class="card-title-row"><h3>${esc(product.title)}</h3><span class="price">${money(product.price)}</span></div>
           <p class="species">${esc(product.species)}</p>
           <p class="description">${esc(product.description)}</p>
+          ${art ? `<p class="representative-note">${esc(representativeDisclosure)}</p>` : ''}
           <div class="care-mini">
             <span>☀️ ${esc(product.light)}</span>
             <span>💧 ${esc(product.watering)}</span>
@@ -119,7 +125,8 @@ function showDetails(id) {
   const product = state.products.find((item) => item.id === id);
   if (!product) return;
   const facts = [['Light', product.light], ['Water', product.watering], ['Soil', product.soil], ['Growing conditions', product.growingConditions], ['Difficulty', product.difficulty], ['Humidity', product.humidity], ['Mature size', product.matureSize], ['Pet safety', product.petSafety], ['Care notes', product.careNotes]];
-  const photo = product.imageUrl ? `<img src="${esc(product.imageUrl)}" alt="${esc(product.title)}" style="display:block;width:100%;max-height:360px;object-fit:cover;border-radius:18px;margin:0 0 1.1rem">` : '';
+  const detailImage = imageFor(product);
+  const photo = detailImage ? `<img src="${esc(detailImage)}" alt="Representative image of ${esc(product.title)}" style="display:block;width:100%;max-height:440px;object-fit:cover;border-radius:18px;margin:0 0 1.1rem"><p class="representative-note">${esc(representativeDisclosure)}</p>` : '';
   dialogContent.innerHTML = `${photo}<p class="eyebrow">Plant care</p><h2>${esc(product.title)}</h2><p class="dialog-species">${esc(product.species)}</p><p class="dialog-price">${money(product.price)}</p><p>${esc(product.description)}</p><div class="care-grid">${facts.map(([label, value]) => `<div class="care-fact"><strong>${esc(label)}</strong><span>${esc(value)}</span></div>`).join('')}</div>`;
   dialog.showModal();
 }

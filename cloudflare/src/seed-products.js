@@ -15,7 +15,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "6 to 10 ft indoors",
     "pet_safety": "Toxic if chewed by cats or dogs",
     "care_notes": "Use a moss pole or support as stems lengthen",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Monstera_deliciosa_WPC.jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/swiss-cheese-plant-representative.webp?v=1789067998",
     "art_variant": 0,
     "is_published": 1
   },
@@ -35,7 +35,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "6 to 10 ft trailing indoors",
     "pet_safety": "Toxic if chewed by cats or dogs",
     "care_notes": "Trim vines to encourage fuller growth",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Epipremnum_aureum_in_wild.jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/golden-pothos-representative.webp?v=1789068003",
     "art_variant": 1,
     "is_published": 1
   },
@@ -55,7 +55,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "2 to 4 ft indoors",
     "pet_safety": "Toxic if chewed by cats or dogs",
     "care_notes": "Avoid leaving water in the pot or crown",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Snake_plant_-Dracaena_trifasciata.jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/snake-plant-representative.webp?v=1789068009",
     "art_variant": 2,
     "is_published": 1
   },
@@ -75,7 +75,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "2 to 4 ft indoors",
     "pet_safety": "Toxic if chewed by cats or dogs",
     "care_notes": "Use a pot with drainage and do not keep the roots wet",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Millonaria_(Zamioculcas_zamiifolia).jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/zz-plant-representative.webp?v=1789068015",
     "art_variant": 3,
     "is_published": 1
   },
@@ -95,7 +95,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "4 to 8 ft trailing indoors",
     "pet_safety": "Toxic if chewed by cats or dogs",
     "care_notes": "Pinch growing tips to encourage branching",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Philodendron_hederaceum_(25177319755).jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/heartleaf-philodendron-representative.webp?v=1789068022",
     "art_variant": 4,
     "is_published": 1
   },
@@ -115,7 +115,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "1 to 2 ft with longer runners",
     "pet_safety": "Generally considered non toxic to cats and dogs",
     "care_notes": "Trim brown tips and remove spent plantlets as needed",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Spider_plants_(Chlorophytum_comosum).jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/spider-plant-representative.webp?v=1789068028",
     "art_variant": 0,
     "is_published": 1
   },
@@ -135,7 +135,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "1 to 3 ft indoors",
     "pet_safety": "Toxic or irritating if chewed by cats or dogs",
     "care_notes": "Remove spent blooms and avoid letting the root ball stay waterlogged",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Spathiphyllum_wallisii.jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/peace-lily-representative.webp?v=1789068033",
     "art_variant": 1,
     "is_published": 1
   },
@@ -155,7 +155,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "6 to 10 ft indoors",
     "pet_safety": "Toxic or irritating if chewed by cats or dogs",
     "care_notes": "Wipe leaves occasionally and rotate the pot for even growth",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ficus_elastica_343432165.jpg?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/rubber-plant-representative.webp?v=1789068039",
     "art_variant": 2,
     "is_published": 1
   },
@@ -175,7 +175,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "6 to 10 ft indoors",
     "pet_safety": "Toxic or irritating if chewed by cats or dogs",
     "care_notes": "Keep light and watering routines consistent and avoid frequent moves",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ficus_lyrata_-_Copenhagen_Botanical_Garden_-_DSC07378.JPG?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/fiddle-leaf-fig-representative.webp?v=1789068045",
     "art_variant": 3,
     "is_published": 1
   },
@@ -195,7 +195,7 @@ export const INITIAL_PRODUCTS = [
     "mature_size": "8 to 18 in indoors",
     "pet_safety": "Generally considered non toxic to cats and dogs",
     "care_notes": "Rotate weekly and separate offsets when they are established",
-    "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pilea_peperomioides_-_Botanischer_Garten,_Dresden,_Germany_-_DSC08613.JPG?width=1200",
+    "image_url": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/chinese-money-plant-representative.webp?v=1789068051",
     "art_variant": 4,
     "is_published": 1
   }
