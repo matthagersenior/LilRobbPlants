@@ -1,0 +1,27 @@
+<section class="section care-at-glance" id="care" aria-labelledby="CareTitle-{{ section.id }}">
+  <div class="page-width care-at-glance__grid">
+    <div>
+      <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2 id="CareTitle-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+    </div>
+    <div class="care-at-glance__list" aria-label="Care information included with plants">
+      <span>☀️ Light</span>
+      <span>💧 Water</span>
+      <span>🪴 Soil</span>
+      <span>🌡️ Growing conditions</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Care at a glance",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Care at a glance" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "No mystery labels." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>" }
+  ],
+  "presets": [{ "name": "Care at a glance" }]
+}
+{% endschema %}

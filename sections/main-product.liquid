@@ -1,4 +1,6 @@
 {% assign selected_variant = product.selected_or_first_available_variant %}
+{% assign is_representative = false %}
+{% if product.tags contains 'Representative image' %}{% assign is_representative = true %}{% endif %}
 <section class="section product-page" data-product-section data-low-stock="{{ settings.low_stock_threshold }}">
   <div class="page-width product-layout">
     <div class="product-gallery leaf-edge">
@@ -14,7 +16,9 @@
         </div>
       {% else %}
         {% render 'representative-product-image', product: product, image_class: 'representative-product-image', loading: 'eager' %}
-        <p class="representative-note">Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.</p>
+      {% endif %}
+      {% if is_representative %}
+        <p class="representative-note representative-note--product"><strong>Image notice:</strong> Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.</p>
       {% endif %}
     </div>
 
@@ -54,6 +58,9 @@
         </button>
       {% endform %}
 
+      {% if settings.coming_soon %}
+        <div class="coming-soon-callout"><strong>Checkout coming soon.</strong> {{ settings.coming_soon_message | escape }}</div>
+      {% endif %}
       {% if settings.shipping_message != blank %}<p class="shipping-note"><span aria-hidden="true">{% render 'icon-leaf' %}</span>{{ settings.shipping_message | escape }}</p>{% endif %}
     </div>
   </div>
