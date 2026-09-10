@@ -1,6 +1,6 @@
 window.THE_ROBB_STORE_ASSETS = Object.freeze({
   "logo": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987",
-  "icon": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon.webp?v=1789067992",
+  "icon": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon-512.png?v=1789068930",
   "products": {
     "swiss-cheese-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/swiss-cheese-plant-representative.webp?v=1789067998",
     "golden-pothos": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/golden-pothos-representative.webp?v=1789068003",
@@ -13,5 +13,6 @@ window.THE_ROBB_STORE_ASSETS = Object.freeze({
     "fiddle-leaf-fig": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/fiddle-leaf-fig-representative.webp?v=1789068045",
     "chinese-money-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/chinese-money-plant-representative.webp?v=1789068051"
   },
-  "disclosure": "Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance."
+  "disclosure": "Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.",
+  "appleTouchIcon": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-apple-touch-icon.png?v=1789068933"
 });
