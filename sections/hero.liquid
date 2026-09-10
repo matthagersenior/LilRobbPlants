@@ -10,7 +10,7 @@
       {% if section.settings.image != blank %}
         {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 768px) 48vw, 100vw', alt: section.settings.image.alt }}
       {% else %}
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        <img class="hero__brand-image" src="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987" alt="The Robb Store botanical logo" width="1200" height="800" loading="eager">
       {% endif %}
     </div>
   </div>
