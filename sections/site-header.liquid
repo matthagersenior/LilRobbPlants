@@ -9,7 +9,7 @@
         {{ settings.logo | image_url: width: settings.logo_width | image_tag: class: 'brand__logo', widths: '80, 120, 160, 200, 260', alt: shop.name }}
       {% else %}
         <span class="brand__mark" aria-hidden="true">{% render 'icon-leaf' %}</span>
-        <span class="brand__text">Lil Robb Plants</span>
+        <span class="brand__text">{{ shop.name | escape }}</span>
       {% endif %}
     </a>
     <nav id="SiteNav-{{ section.id }}" class="site-nav" aria-label="Primary navigation" data-mobile-menu>
