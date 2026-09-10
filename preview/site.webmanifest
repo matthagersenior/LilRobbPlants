@@ -1,0 +1,24 @@
+{
+  "name": "The Robb Store",
+  "short_name": "Robb Store",
+  "description": "Houseplants, simply cared for.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F3EA",
+  "theme_color": "#2D5A3C",
+  "icons": [
+    {
+      "src": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon-512.png?v=1789068930",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-apple-touch-icon.png?v=1789068933",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
