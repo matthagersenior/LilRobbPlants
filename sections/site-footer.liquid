@@ -1,7 +1,7 @@
 <footer class="site-footer">
   <div class="page-width footer-grid">
     <div>
-      <a class="brand brand--footer" href="{{ routes.root_url }}"><span class="brand__mark" aria-hidden="true">{% render 'icon-leaf' %}</span><span class="brand__text">Lil Robb Plants</span></a>
+      <a class="brand brand--footer" href="{{ routes.root_url }}"><span class="brand__mark" aria-hidden="true">{% render 'icon-leaf' %}</span><span class="brand__text">{{ shop.name | escape }}</span></a>
       <p class="footer-copy">{{ section.settings.tagline | escape }}</p>
     </div>
     {% if section.settings.menu != blank %}
