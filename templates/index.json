@@ -1,20 +1,47 @@
 {
   "sections": {
-    "hero": { "type": "hero", "settings": {} },
-    "featured": { "type": "featured-collection", "settings": {} },
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Plants that fit real homes",
+        "heading": "Find a plant you’ll know how to keep happy.",
+        "text": "<p>See the species, price, live inventory, and practical care details before you choose. Checkout will open when the store is ready for orders.</p>",
+        "button_label": "Browse plants",
+        "button_link": "/collections/launch-collection",
+        "secondary_button_label": "See shipping examples",
+        "secondary_button_link": "#shipping"
+      }
+    },
+    "shipping": { "type": "shipping-strip", "settings": {} },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Launch collection",
+        "heading": "Popular houseplants",
+        "collection": "launch-collection",
+        "products_to_show": 10
+      }
+    },
     "categories": {
       "type": "category-grid",
       "blocks": {
-        "beginner": { "type": "collection", "settings": { "fallback_title": "Beginner friendly" } },
-        "lowlight": { "type": "collection", "settings": { "fallback_title": "Low light" } },
-        "tropical": { "type": "collection", "settings": { "fallback_title": "Tropical" } }
+        "beginner": { "type": "collection", "settings": { "collection": "easy-care", "fallback_title": "Easy care" } },
+        "lowlight": { "type": "collection", "settings": { "collection": "low-light", "fallback_title": "Low light" } },
+        "tropical": { "type": "collection", "settings": { "collection": "tropical", "fallback_title": "Tropical" } }
       },
       "block_order": ["beginner", "lowlight", "tropical"],
-      "settings": {}
+      "settings": { "heading": "Shop by what your space needs" }
     },
-    "care": { "type": "image-with-text", "settings": {} },
-    "about": { "type": "rich-text", "settings": { "eyebrow": "About the shop" } },
+    "care": { "type": "care-at-glance", "settings": {} },
+    "about": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "About the shop",
+        "heading": "Houseplants without the mystery.",
+        "text": "<p>The Robb Store pairs each plant with clear care guidance, transparent availability, and straightforward pricing so you can choose confidently.</p>"
+      }
+    },
     "newsletter": { "type": "newsletter", "settings": {} }
   },
-  "order": ["hero", "featured", "categories", "care", "about", "newsletter"]
+  "order": ["hero", "shipping", "featured", "categories", "care", "about", "newsletter"]
 }

@@ -1,0 +1,31 @@
+<section class="section shipping-section" id="shipping" aria-labelledby="ShippingTitle-{{ section.id }}">
+  <div class="page-width">
+    <div class="shipping-strip">
+      <div class="shipping-strip__card">
+        <span class="shipping-strip__icon" aria-hidden="true">📦</span>
+        <div><strong id="ShippingTitle-{{ section.id }}">{{ settings.standard_shipping_rate | times: 100 | money_without_trailing_zeros }} standard shipping</strong><small>Example flat rate per order</small></div>
+      </div>
+      <div class="shipping-strip__card">
+        <span class="shipping-strip__icon" aria-hidden="true">🌿</span>
+        <div><strong>Free shipping at {{ settings.free_shipping_threshold | times: 100 | money_without_trailing_zeros }}+</strong><small>Example launch threshold</small></div>
+      </div>
+      {% if settings.local_pickup_enabled %}
+        <div class="shipping-strip__card">
+          <span class="shipping-strip__icon" aria-hidden="true">📍</span>
+          <div><strong>Free local pickup</strong><small>When pickup is enabled</small></div>
+        </div>
+      {% endif %}
+    </div>
+    <p class="shipping-strip__note">{{ section.settings.note | escape }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shipping highlights",
+  "settings": [
+    { "type": "text", "id": "note", "label": "Note", "default": "These are launch examples. Final Shopify shipping rates and pickup availability are confirmed before checkout opens." }
+  ],
+  "presets": [{ "name": "Shipping highlights" }]
+}
+{% endschema %}

@@ -1,12 +1,14 @@
 {% assign card_variant = product.selected_or_first_available_variant %}
+{% assign is_representative = false %}
+{% if product.tags contains 'Representative image' %}{% assign is_representative = true %}{% endif %}
 <article class="plant-card leaf-edge">
   <a class="plant-card__media" href="{{ product.url }}">
     {% if product.featured_image != blank %}
       {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '320, 480, 640, 900', sizes: '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw', alt: product.featured_image.alt | default: product.title }}
     {% else %}
       {% render 'representative-product-image', product: product, image_class: 'representative-product-image' %}
-      <span class="representative-badge">Representative image</span>
     {% endif %}
+    {% if is_representative %}<span class="representative-badge">Representative image</span>{% endif %}
   </a>
   <div class="plant-card__body">
     <div class="plant-card__heading">
@@ -17,7 +19,7 @@
       {% render 'price', product: product, variant: card_variant %}
     </div>
     {% render 'inventory-status', variant: card_variant %}
-    {% if product.featured_image == blank %}<p class="representative-note">Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance.</p>{% endif %}
+    {% if is_representative %}<p class="representative-note">Actual plant may vary in size, shape, leaf pattern, pot, and appearance.</p>{% endif %}
     {% if product.metafields.plant.light.value != blank or product.metafields.plant.watering.value != blank %}
       <div class="card-care">
         {% if product.metafields.plant.light.value != blank %}<span><span aria-hidden="true">{% render 'icon-sun' %}</span>{{ product.metafields.plant.light.value }}</span>{% endif %}

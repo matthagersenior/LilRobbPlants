@@ -4,7 +4,14 @@
       {% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
       <h1>{{ section.settings.heading | escape }}</h1>
       <div class="rte hero__text">{{ section.settings.text }}</div>
-      {% if section.settings.button_label != blank %}<a class="button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>{% endif %}
+      <div class="hero__actions">
+        {% if section.settings.button_label != blank %}
+          <a class="button" href="{{ section.settings.button_link | default: '/collections/launch-collection' }}">{{ section.settings.button_label | escape }}</a>
+        {% endif %}
+        {% if section.settings.secondary_button_label != blank %}
+          <a class="button button--secondary" href="{{ section.settings.secondary_button_link | default: '#shipping' }}">{{ section.settings.secondary_button_label | escape }}</a>
+        {% endif %}
+      </div>
     </div>
     <div class="hero__media">
       {% if section.settings.image != blank %}
@@ -20,11 +27,13 @@
 {
   "name": "Plant hero",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Grown for real homes" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Find the right plant for your space." },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Browse clear care details, live availability, and straightforward pricing before you buy.</p>" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop plants" },
-    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Plants that fit real homes" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find a plant you’ll know how to keep happy." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>See the species, price, live inventory, and practical care details before you choose. Checkout will open when the store is ready for orders.</p>" },
+    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Browse plants" },
+    { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_button_label", "label": "Secondary button label", "default": "See shipping examples" },
+    { "type": "url", "id": "secondary_button_link", "label": "Secondary button link" },
     { "type": "image_picker", "id": "image", "label": "Image" }
   ],
   "presets": [{ "name": "Plant hero" }]

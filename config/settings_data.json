@@ -7,7 +7,12 @@
     "color_accent": "#2D5A3C",
     "color_focus": "#375D3B",
     "logo_width": 190,
+    "coming_soon": true,
+    "coming_soon_message": "Online ordering is not open yet. Browse the launch collection and build a cart now.",
     "low_stock_threshold": 4,
+    "standard_shipping_rate": 10,
+    "free_shipping_threshold": 75,
+    "local_pickup_enabled": true,
     "shipping_message": "Shipping and pickup options are shown at checkout."
   },
   "presets": {}

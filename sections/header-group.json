@@ -2,7 +2,13 @@
   "type": "header",
   "name": "Header group",
   "sections": {
-    "announcement": { "type": "announcement-bar", "settings": { "text": "Welcome to Lil Robb Plants" } },
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Coming soon: Online ordering is not open yet. Browse the launch collection now.",
+        "link": "/collections/launch-collection"
+      }
+    },
     "header": { "type": "site-header", "settings": { "menu": "main-menu" } }
   },
   "order": ["announcement", "header"]
