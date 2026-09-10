@@ -1,0 +1,16 @@
+{%- assign representative_url = '' -%}
+{%- case product.handle -%}
+  {%- when 'swiss-cheese-plant' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/swiss-cheese-plant-representative.webp?v=1789067998' -%}
+  {%- when 'golden-pothos' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/golden-pothos-representative.webp?v=1789068003' -%}
+  {%- when 'snake-plant' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/snake-plant-representative.webp?v=1789068009' -%}
+  {%- when 'zz-plant' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/zz-plant-representative.webp?v=1789068015' -%}
+  {%- when 'heartleaf-philodendron' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/heartleaf-philodendron-representative.webp?v=1789068022' -%}
+  {%- when 'spider-plant' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/spider-plant-representative.webp?v=1789068028' -%}
+  {%- when 'peace-lily' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/peace-lily-representative.webp?v=1789068033' -%}
+  {%- when 'rubber-plant' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/rubber-plant-representative.webp?v=1789068039' -%}
+  {%- when 'fiddle-leaf-fig' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/fiddle-leaf-fig-representative.webp?v=1789068045' -%}
+  {%- when 'chinese-money-plant' -%}{%- assign representative_url = 'https://cdn.shopify.com/s/files/1/0748/8480/8855/files/chinese-money-plant-representative.webp?v=1789068051' -%}
+{%- endcase -%}
+{%- if representative_url != blank -%}
+  <img class="{{ image_class | default: 'representative-product-image' }}" src="{{ representative_url }}" alt="Representative image of {{ product.title | escape }}" loading="{{ loading | default: 'lazy' }}" width="900" height="900">
+{%- endif -%}
