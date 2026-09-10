@@ -9,7 +9,7 @@ const rawProducts=parseCsv(readFileSync(join(root,'data/sample-products.csv'),'u
 const products=rawProducts.map((row,index)=>({id:row['URL handle'],title:row.Title,description:row.Description,species:row['product.metafields.plant.species'],price:Number(row.Price),inventory:Number(row['Inventory quantity']),light:row['product.metafields.plant.light'],watering:row['product.metafields.plant.watering'],soil:row['product.metafields.plant.soil'],growingConditions:row['product.metafields.plant.growing_conditions'],difficulty:row['product.metafields.plant.difficulty'],humidity:row['product.metafields.plant.humidity'],matureSize:row['product.metafields.plant.mature_size'],petSafety:row['product.metafields.plant.pet_safety'],careNotes:row['product.metafields.plant.care_notes'],imageUrl:brandAssets.products[row['URL handle']]||'',artVariant:index%5}));
 const missing=products.filter(product=>!product.imageUrl);if(missing.length)throw new Error('Missing representative image for: '+missing.map(item=>item.id).join(', '));
 rmSync(outDir,{recursive:true,force:true});mkdirSync(outDir,{recursive:true});
-for(const file of ['styles.css','brand-refresh.css','app.js','config.js','image-assets.js'])copyFileSync(join(sourceDir,file),join(outDir,file));
+for(const file of ['styles.css','brand-refresh.css','app.js','config.js','image-assets.js','site.webmanifest','robots.txt','sitemap.xml'])copyFileSync(join(sourceDir,file),join(outDir,file));
 copyDir(join(sourceDir,'admin'),join(outDir,'admin'));
 const sourceHtml=readFileSync(join(sourceDir,'index.html'),'utf8');
 const embeddedProducts=`<script>window.__LIL_ROBB_PRODUCTS__ = ${JSON.stringify(products).replace(/</g,'\\u003c')};</script>`;
