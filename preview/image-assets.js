@@ -1,0 +1,17 @@
+window.THE_ROBB_STORE_ASSETS = Object.freeze({
+  "logo": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-logo.webp?v=1789067987",
+  "icon": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon.webp?v=1789067992",
+  "products": {
+    "swiss-cheese-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/swiss-cheese-plant-representative.webp?v=1789067998",
+    "golden-pothos": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/golden-pothos-representative.webp?v=1789068003",
+    "snake-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/snake-plant-representative.webp?v=1789068009",
+    "zz-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/zz-plant-representative.webp?v=1789068015",
+    "heartleaf-philodendron": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/heartleaf-philodendron-representative.webp?v=1789068022",
+    "spider-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/spider-plant-representative.webp?v=1789068028",
+    "peace-lily": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/peace-lily-representative.webp?v=1789068033",
+    "rubber-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/rubber-plant-representative.webp?v=1789068039",
+    "fiddle-leaf-fig": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/fiddle-leaf-fig-representative.webp?v=1789068045",
+    "chinese-money-plant": "https://cdn.shopify.com/s/files/1/0748/8480/8855/files/chinese-money-plant-representative.webp?v=1789068051"
+  },
+  "disclosure": "Representative image. Actual plant may vary in size, shape, leaf pattern, pot, and appearance."
+});
