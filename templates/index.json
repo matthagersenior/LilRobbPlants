@@ -39,10 +39,24 @@
     "categories": {
       "type": "category-grid",
       "blocks": {
+        "collection_c7Cz7g": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-legacy-collection",
+            "fallback_title": "Plant collection"
+          }
+        },
+        "collection_xR7V4X": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-robb-collection",
+            "fallback_title": "Plant collection"
+          }
+        },
         "collection_yERhzV": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "therobbstore-myshopify-com",
             "fallback_title": "Plant collection"
           }
         },
@@ -66,21 +80,15 @@
             "collection": "tropical",
             "fallback_title": "Tropical"
           }
-        },
-        "collection_m9NgBC": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "fallback_title": "Plant collection"
-          }
         }
       },
       "block_order": [
+        "collection_c7Cz7g",
+        "collection_xR7V4X",
         "collection_yERhzV",
         "beginner",
         "lowlight",
-        "tropical",
-        "collection_m9NgBC"
+        "tropical"
       ],
       "settings": {
         "heading": "Shop by what your space needs"
@@ -115,10 +123,10 @@
   },
   "order": [
     "hero",
-    "shipping",
+    "care",
     "featured",
     "categories",
-    "care",
+    "shipping",
     "about",
     "newsletter"
   ]
