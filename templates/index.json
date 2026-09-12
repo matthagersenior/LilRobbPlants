@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -12,27 +21,57 @@
         "secondary_button_link": "#shipping"
       }
     },
-    "shipping": { "type": "shipping-strip", "settings": {} },
+    "shipping": {
+      "type": "shipping-strip",
+      "settings": {}
+    },
     "featured": {
       "type": "featured-collection",
       "settings": {
         "eyebrow": "Launch collection",
         "heading": "Popular houseplants",
-        "collection": "launch-collection",
+        "collection": "all-products",
         "products_to_show": 10
       }
     },
     "categories": {
       "type": "category-grid",
       "blocks": {
-        "beginner": { "type": "collection", "settings": { "collection": "easy-care", "fallback_title": "Easy care" } },
-        "lowlight": { "type": "collection", "settings": { "collection": "low-light", "fallback_title": "Low light" } },
-        "tropical": { "type": "collection", "settings": { "collection": "tropical", "fallback_title": "Tropical" } }
+        "beginner": {
+          "type": "collection",
+          "settings": {
+            "collection": "easy-care",
+            "fallback_title": "Easy care"
+          }
+        },
+        "lowlight": {
+          "type": "collection",
+          "settings": {
+            "collection": "low-light",
+            "fallback_title": "Low light"
+          }
+        },
+        "tropical": {
+          "type": "collection",
+          "settings": {
+            "collection": "tropical",
+            "fallback_title": "Tropical"
+          }
+        }
       },
-      "block_order": ["beginner", "lowlight", "tropical"],
-      "settings": { "heading": "Shop by what your space needs" }
+      "block_order": [
+        "beginner",
+        "lowlight",
+        "tropical"
+      ],
+      "settings": {
+        "heading": "Shop by what your space needs"
+      }
     },
-    "care": { "type": "care-at-glance", "settings": {} },
+    "care": {
+      "type": "care-at-glance",
+      "settings": {}
+    },
     "about": {
       "type": "rich-text",
       "settings": {
@@ -41,7 +80,18 @@
         "text": "<p>The Robb Store pairs each plant with clear care guidance, transparent availability, and straightforward pricing so you can choose confidently.</p>"
       }
     },
-    "newsletter": { "type": "newsletter", "settings": {} }
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
   },
-  "order": ["hero", "shipping", "featured", "categories", "care", "about", "newsletter"]
+  "order": [
+    "hero",
+    "shipping",
+    "featured",
+    "categories",
+    "care",
+    "about",
+    "newsletter"
+  ]
 }
