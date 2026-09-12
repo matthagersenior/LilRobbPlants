@@ -1,19 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
+    "logo": "{{ shop.brand.square_logo }}",
+    "logo_width": 260,
+    "coming_soon": false,
+    "coming_soon_message": "Online ordering is not open yet. Browse the launch collection and build a cart now.",
     "color_surface": "#F7F3EA",
     "color_raised": "#FFFFFF",
     "color_ink": "#1F3A2D",
     "color_muted": "#6E5B48",
     "color_accent": "#2D5A3C",
     "color_focus": "#375D3B",
-    "logo_width": 190,
-    "coming_soon": true,
-    "coming_soon_message": "Online ordering is not open yet. Browse the launch collection and build a cart now.",
-    "low_stock_threshold": 4,
+    "low_stock_threshold": 1,
     "standard_shipping_rate": 10,
     "free_shipping_threshold": 75,
     "local_pickup_enabled": true,
-    "shipping_message": "Shipping and pickup options are shown at checkout."
+    "shipping_message": "Shipping and pickup options are shown at checkout.",
+    "contact_email": "lilrobb4life@gmail.com",
+    "social_facebook": "https://www.facebook.com/share/1HyGHvxQDi/",
+    "content_for_index": []
   },
   "presets": {}
 }
