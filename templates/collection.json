@@ -1,1 +1,58 @@
-{ "sections": { "main": { "type": "main-collection", "settings": {} } }, "order": ["main"] }
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "category_grid_6kiXwD": {
+      "type": "category-grid",
+      "blocks": {
+        "collection_n8kXnq": {
+          "type": "collection",
+          "settings": {
+            "collection": "therobbstore-myshopify-com",
+            "fallback_title": "Tiffany{{ block.settings.collection.title }}"
+          }
+        },
+        "collection_9GYjEB": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-robb-collection",
+            "fallback_title": "Plant collection"
+          }
+        },
+        "collection_f8Jcci": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-legacy-collection",
+            "fallback_title": "The Legacy Collection"
+          }
+        }
+      },
+      "block_order": [
+        "collection_n8kXnq",
+        "collection_9GYjEB",
+        "collection_f8Jcci"
+      ],
+      "name": "Plant categories",
+      "settings": {
+        "heading": "Lil Robb's Featured Collections"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 8
+      }
+    }
+  },
+  "order": [
+    "category_grid_6kiXwD",
+    "main"
+  ]
+}

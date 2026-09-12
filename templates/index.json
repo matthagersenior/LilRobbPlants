@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -12,7 +21,12 @@
         "secondary_button_link": "#shipping"
       }
     },
-    "shipping": { "type": "shipping-strip", "settings": {} },
+    "shipping": {
+      "type": "shipping-strip",
+      "settings": {
+        "note": "These are launch examples. Final Shopify shipping rates and pickup availability are confirmed before checkout opens."
+      }
+    },
     "featured": {
       "type": "featured-collection",
       "settings": {
@@ -25,23 +39,87 @@
     "categories": {
       "type": "category-grid",
       "blocks": {
-        "beginner": { "type": "collection", "settings": { "collection": "easy-care", "fallback_title": "Easy care" } },
-        "lowlight": { "type": "collection", "settings": { "collection": "low-light", "fallback_title": "Low light" } },
-        "tropical": { "type": "collection", "settings": { "collection": "tropical", "fallback_title": "Tropical" } }
+        "collection_yERhzV": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "fallback_title": "Plant collection"
+          }
+        },
+        "beginner": {
+          "type": "collection",
+          "settings": {
+            "collection": "easy-care",
+            "fallback_title": "Easy care"
+          }
+        },
+        "lowlight": {
+          "type": "collection",
+          "settings": {
+            "collection": "low-light",
+            "fallback_title": "Low light"
+          }
+        },
+        "tropical": {
+          "type": "collection",
+          "settings": {
+            "collection": "tropical",
+            "fallback_title": "Tropical"
+          }
+        },
+        "collection_m9NgBC": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "fallback_title": "Plant collection"
+          }
+        }
       },
-      "block_order": ["beginner", "lowlight", "tropical"],
-      "settings": { "heading": "Shop by what your space needs" }
+      "block_order": [
+        "collection_yERhzV",
+        "beginner",
+        "lowlight",
+        "tropical",
+        "collection_m9NgBC"
+      ],
+      "settings": {
+        "heading": "Shop by what your space needs"
+      }
     },
-    "care": { "type": "care-at-glance", "settings": {} },
+    "care": {
+      "type": "care-at-glance",
+      "settings": {
+        "eyebrow": "Care at a glance",
+        "heading": "No mystery labels.",
+        "text": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>"
+      }
+    },
     "about": {
       "type": "rich-text",
       "settings": {
         "eyebrow": "About the shop",
         "heading": "Houseplants without the mystery.",
-        "text": "<p>The Robb Store pairs each plant with clear care guidance, transparent availability, and straightforward pricing so you can choose confidently.</p>"
+        "text": "<p>The Robb Store pairs each plant with clear care guidance, transparent availability, and straightforward pricing so you can choose confidently.</p>",
+        "button_label": "",
+        "button_link": ""
       }
     },
-    "newsletter": { "type": "newsletter", "settings": {} }
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "New plants, without the clutter",
+        "heading": "Hear when fresh inventory lands.",
+        "text": "Share your email for store updates you choose to send."
+      }
+    }
   },
-  "order": ["hero", "shipping", "featured", "categories", "care", "about", "newsletter"]
+  "order": [
+    "hero",
+    "shipping",
+    "featured",
+    "categories",
+    "care",
+    "about",
+    "newsletter"
+  ]
 }

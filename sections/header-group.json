@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header group",
@@ -5,11 +14,19 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Coming soon: Online ordering is not open yet. Browse the launch collection now.",
+        "text": "Join Our Fan Club and Follow Our Blog!",
         "link": "/collections/launch-collection"
       }
     },
-    "header": { "type": "site-header", "settings": { "menu": "main-menu" } }
+    "header": {
+      "type": "site-header",
+      "settings": {
+        "menu": "main-menu"
+      }
+    }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }
