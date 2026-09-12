@@ -30,10 +30,10 @@
     "featured": {
       "type": "featured-collection",
       "settings": {
-        "eyebrow": "Launch collection",
-        "heading": "Popular houseplants",
+        "eyebrow": "Houseplants by Lil Robb",
+        "heading": "Browse Lil Robb's Inventory",
         "collection": "all-products",
-        "products_to_show": 10
+        "products_to_show": 4
       }
     },
     "categories": {
