@@ -16,7 +16,7 @@
         "heading": "Find a plant you’ll know how to keep happy.",
         "text": "<p>See the species, price, live inventory, and practical care details before you choose. Checkout will open when the store is ready for orders.</p>",
         "button_label": "Browse plants",
-        "button_link": "/collections/launch-collection",
+        "button_link": "shopify://collections",
         "secondary_button_label": "See shipping examples",
         "secondary_button_link": "#shipping"
       }
