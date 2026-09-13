@@ -15,7 +15,7 @@
       "type": "announcement-bar",
       "settings": {
         "text": "Join Our Fan Club and Follow Our Blog!",
-        "link": "/collections/launch-collection"
+        "link": "shopify://collections/frontpage"
       }
     },
     "header": {
