@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
-const required = ['layout/theme.liquid','config/settings_schema.json','config/settings_data.json','locales/en.default.json'];
+const required = ['layout/theme.liquid','config/settings_schema.json','config/settings_data.json','locales/en.default.json','assets/manifest.webmanifest','snippets/pwa-install.liquid'];
 const read = (path) => readFileSync(join(root, path), 'utf8');
 
 test('Shopify theme skeleton exposes required global files', () => { for (const path of required) assert.ok(existsSync(join(root, path)), `missing ${path}`); });
@@ -42,3 +42,27 @@ const parseSimpleCsv=(source)=>{const lines=source.trim().split(/\r?\n/);const h
 test('sample Shopify catalog includes all ten approved plants with price and inventory',()=>{assert.ok(existsSync(join(root,'data/sample-products.csv')),'missing sample-products.csv');const rows=parseSimpleCsv(read('data/sample-products.csv'));assert.equal(rows.length,10);for(const [species,commonName] of approvedPlants){const row=rows.find((entry)=>entry.Title===commonName);assert.ok(row,`missing ${commonName}`);assert.equal(row['product.metafields.plant.species'],species);assert.ok(row.Price,`${commonName} missing Price`);assert.ok(row['Inventory quantity'],`${commonName} missing Inventory quantity`);}});
 test('sample metafield matrix supplies every plant care field for every example',()=>{assert.ok(existsSync(join(root,'data/sample-plant-metafields.csv')),'missing sample-plant-metafields.csv');const rows=parseSimpleCsv(read('data/sample-plant-metafields.csv'));assert.equal(rows.length,10);for(const row of rows){for(const key of ['species','light','watering','soil','growing_conditions','difficulty','humidity','mature_size','pet_safety','care_notes'])assert.ok(row[`product.metafields.plant.${key}`],`${row.Title} missing ${key}`);}});
 test('owner documentation covers Shopify setup and routine updates',()=>{for(const path of ['README.md','docs/shopify-setup.md','docs/owner-workflow.md'])assert.ok(existsSync(join(root,path)),`missing ${path}`);const setup=read('docs/shopify-setup.md');assert.match(setup,/Settings\s*>\s*Custom data\s*>\s*Products/i);assert.match(setup,/multiple locations/i);assert.match(setup,/Shop\s*\/\s*Plant Care\s*\/\s*About\s*\/\s*Shipping\s*\/\s*Cart/i);const owner=read('docs/owner-workflow.md');assert.match(owner,/photos.*price.*inventory.*care.*publish/is);});
+
+test('PWA manifest is installable and branded for The Robb Store',()=>{
+  const manifest=JSON.parse(read('assets/manifest.webmanifest'));
+  assert.equal(manifest.name,'The Robb Store');
+  assert.equal(manifest.short_name,'Robb Store');
+  assert.equal(manifest.display,'standalone');
+  assert.equal(manifest.scope,'/');
+  assert.ok(manifest.start_url.startsWith('/'));
+  assert.equal(manifest.prefer_related_applications,false);
+  assert.ok(manifest.icons.some((icon)=>icon.sizes==='192x192'));
+  assert.ok(manifest.icons.some((icon)=>icon.sizes==='512x512'));
+  assert.ok(manifest.shortcuts.some((shortcut)=>shortcut.url.includes('launch-collection')));
+});
+test('theme exposes PWA manifest and install experience',()=>{
+  const layout=read('layout/theme.liquid');
+  const header=read('sections/site-header.liquid');
+  const script=read('assets/theme.js');
+  assert.match(layout,/rel="manifest"/);
+  assert.match(layout,/render\s+'pwa-install'/);
+  assert.match(header,/data-pwa-install/);
+  assert.match(script,/beforeinstallprompt/);
+  assert.match(script,/appinstalled/);
+  assert.match(script,/display-mode:\s*standalone/);
+});
