@@ -15,3 +15,23 @@
 .coming-soon-callout{margin:16px 0;padding:14px 16px;border-radius:14px;background:#e7eee5;border:1px solid #c9d8cb;color:var(--color-ink)}.fine-print{margin-top:10px;color:var(--color-muted);font-size:.82rem}
 @media(min-width:720px){.shipping-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.care-at-glance__grid{grid-template-columns:1.1fr .9fr}.care-at-glance__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.site-header__inner{min-height:84px}.brand__fallback-logo{width:112px}.hero__brand-image{min-height:250px}.hero__actions .button{width:100%}}
+
+.header-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.pwa-install-button{min-height:38px;padding:8px 12px;border:1px solid var(--color-accent);border-radius:999px;background:transparent;color:var(--color-accent);font-weight:800;white-space:nowrap}
+.pwa-install-button:hover{background:var(--color-accent);color:#fff}
+.pwa-help{width:min(92vw,440px);padding:0;border:0;border-radius:22px;background:var(--color-raised);color:var(--color-ink);box-shadow:0 28px 80px rgba(14,35,23,.32)}
+.pwa-help::backdrop{background:rgba(10,26,17,.58);backdrop-filter:blur(3px)}
+.pwa-help__content{position:relative;padding:28px}
+.pwa-help__close{position:absolute;right:14px;top:12px;width:40px;height:40px;border:0;background:transparent;font-size:1.65rem;line-height:1}
+.pwa-help__icon{border-radius:20px;margin:0 0 18px;box-shadow:0 8px 22px rgba(20,48,31,.18)}
+.is-standalone .pwa-install-button{display:none!important}
+@media(display-mode:standalone){
+  html{background:var(--color-surface)}
+  .site-header{position:sticky;top:0}
+  body{padding-bottom:env(safe-area-inset-bottom)}
+  .announcement{padding-top:env(safe-area-inset-top)}
+}
+@media(max-width:520px){
+  .header-actions{gap:6px}
+  .pwa-install-button{padding:7px 10px;font-size:.8rem}
+}
