@@ -23,70 +23,10 @@
       "settings": {
         "menu": "main-menu"
       }
-    },
-    "category_grid_6cQXBT": {
-      "type": "category-grid",
-      "blocks": {
-        "collection_mxQqtb": {
-          "type": "collection",
-          "settings": {
-            "collection": "the-legacy-collection",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_eEtVzW": {
-          "type": "collection",
-          "settings": {
-            "collection": "the-robb-collection",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_YARXeJ": {
-          "type": "collection",
-          "settings": {
-            "collection": "therobbstore-myshopify-com",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_6n6k8i": {
-          "type": "collection",
-          "settings": {
-            "collection": "easy-care",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_gY3FY6": {
-          "type": "collection",
-          "settings": {
-            "collection": "low-light",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_nk6TEE": {
-          "type": "collection",
-          "settings": {
-            "collection": "tropical",
-            "fallback_title": "Plant collection"
-          }
-        }
-      },
-      "block_order": [
-        "collection_mxQqtb",
-        "collection_eEtVzW",
-        "collection_YARXeJ",
-        "collection_6n6k8i",
-        "collection_gY3FY6",
-        "collection_nk6TEE"
-      ],
-      "name": "Plant categories",
-      "settings": {
-        "heading": "Care Collections"
-      }
     }
   },
   "order": [
     "announcement",
-    "header",
-    "category_grid_6cQXBT"
+    "header"
   ]
 }
