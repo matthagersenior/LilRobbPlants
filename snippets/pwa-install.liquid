@@ -1,0 +1,12 @@
+{% if settings.pwa_enabled %}
+  <dialog class="pwa-help" data-pwa-help aria-labelledby="PwaHelpTitle">
+    <div class="pwa-help__content">
+      <button class="pwa-help__close" type="button" data-pwa-help-close aria-label="Close install instructions">×</button>
+      <img class="pwa-help__icon" src="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon-192.png?v=1789311747" alt="" width="72" height="72">
+      <p class="eyebrow">Install The Robb Store</p>
+      <h2 id="PwaHelpTitle">Keep the store on your home screen.</h2>
+      <p data-pwa-help-copy>Use your browser’s install or “Add to Home Screen” option to open The Robb Store like an app.</p>
+      <button class="button button--full" type="button" data-pwa-help-close>Got it</button>
+    </div>
+  </dialog>
+{% endif %}
