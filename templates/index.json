@@ -90,7 +90,7 @@
     "shipping": {
       "type": "shipping-strip",
       "settings": {
-        "note": "These are launch examples. Final Shopify shipping rates and pickup availability are confirmed before checkout opens."
+        "note": "These are launch examples. Final Shopify shipping rates and pickup availability are confirmed before checkout opens.  All plants are shipped in standard nursery pots of relevant size."
       }
     },
     "about": {
