@@ -21,19 +21,12 @@
         "secondary_button_link": "#shipping"
       }
     },
-    "shipping": {
-      "type": "shipping-strip",
+    "care": {
+      "type": "care-at-glance",
       "settings": {
-        "note": "These are launch examples. Final Shopify shipping rates and pickup availability are confirmed before checkout opens."
-      }
-    },
-    "featured": {
-      "type": "featured-collection",
-      "settings": {
-        "eyebrow": "Houseplants by Lil Robb",
-        "heading": "Browse Lil Robb's Inventory",
-        "collection": "all-products",
-        "products_to_show": 4
+        "eyebrow": "Care at a glance",
+        "heading": "No mystery labels.",
+        "text": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>"
       }
     },
     "categories": {
@@ -94,12 +87,10 @@
         "heading": "Shop by what your space needs"
       }
     },
-    "care": {
-      "type": "care-at-glance",
+    "shipping": {
+      "type": "shipping-strip",
       "settings": {
-        "eyebrow": "Care at a glance",
-        "heading": "No mystery labels.",
-        "text": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>"
+        "note": "These are launch examples. Final Shopify shipping rates and pickup availability are confirmed before checkout opens."
       }
     },
     "about": {
@@ -124,7 +115,6 @@
   "order": [
     "hero",
     "care",
-    "featured",
     "categories",
     "shipping",
     "about",

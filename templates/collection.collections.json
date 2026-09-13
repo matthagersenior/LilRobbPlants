@@ -49,9 +49,19 @@
       "settings": {
         "products_per_page": 8
       }
+    },
+    "care_at_glance_7XfWLf": {
+      "type": "care-at-glance",
+      "name": "Care at a glance",
+      "settings": {
+        "eyebrow": "Care at a glance",
+        "heading": "No mystery labels.",
+        "text": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>"
+      }
     }
   },
   "order": [
+    "care_at_glance_7XfWLf",
     "category_grid_6kiXwD",
     "main"
   ]
