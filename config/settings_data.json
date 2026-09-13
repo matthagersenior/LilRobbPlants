@@ -26,7 +26,9 @@
     "shipping_message": "Shipping and pickup options are shown at checkout.",
     "contact_email": "lilrobb4life@gmail.com",
     "social_facebook": "https://www.facebook.com/share/1HyGHvxQDi/",
-    "content_for_index": []
+    "content_for_index": [],
+    "pwa_enabled": true,
+    "pwa_show_install_button": true
   },
   "presets": {}
 }
