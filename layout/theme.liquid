@@ -7,6 +7,10 @@
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="icon" type="image/png" sizes="512x512" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-icon-512.png?v=1789068930">
     <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.shopify.com/s/files/1/0748/8480/8855/files/the-robb-store-apple-touch-icon.png?v=1789068933">
+    {% if settings.pwa_enabled %}
+      <link rel="manifest" href="{{ 'manifest.webmanifest' | asset_url }}">
+      <meta name="application-name" content="{{ shop.name | escape }}">
+    {% endif %}
     <link rel="canonical" href="{{ canonical_url }}">
     <title>
       {{ page_title }}
@@ -65,5 +69,6 @@
       {{ content_for_layout }}
     </main>
     {% sections 'footer-group' %}
+    {% render 'pwa-install' %}
   </body>
 </html>
