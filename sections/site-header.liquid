@@ -24,7 +24,12 @@
         <button type="submit">Search</button>
       </form>
     </nav>
-    <a class="cart-link" href="{{ routes.cart_url }}" aria-label="Cart with {{ cart.item_count }} items">Cart <span class="cart-count">{{ cart.item_count }}</span></a>
+    <div class="header-actions">
+      {% if settings.pwa_enabled and settings.pwa_show_install_button %}
+        <button class="pwa-install-button" type="button" data-pwa-install hidden aria-label="Install The Robb Store app">Install app</button>
+      {% endif %}
+      <a class="cart-link" href="{{ routes.cart_url }}" aria-label="Cart with {{ cart.item_count }} items">Cart <span class="cart-count">{{ cart.item_count }}</span></a>
+    </div>
   </div>
 </header>
 

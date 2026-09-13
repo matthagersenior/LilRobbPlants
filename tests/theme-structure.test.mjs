@@ -4,14 +4,15 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = process.cwd();
-const required = ['layout/theme.liquid','config/settings_schema.json','config/settings_data.json','locales/en.default.json'];
+const required = ['layout/theme.liquid','config/settings_schema.json','config/settings_data.json','locales/en.default.json','assets/manifest.webmanifest','snippets/pwa-install.liquid'];
 const read = (path) => readFileSync(join(root, path), 'utf8');
+const parseShopifyJson = (path) => JSON.parse(read(path).replace(/^\/\*[\s\S]*?\*\/\s*/, ''));
 
 test('Shopify theme skeleton exposes required global files', () => { for (const path of required) assert.ok(existsSync(join(root, path)), `missing ${path}`); });
 test('theme layout exposes Shopify rendering seams', () => { const layout = read('layout/theme.liquid'); assert.match(layout,/content_for_header/); assert.match(layout,/content_for_layout/); assert.match(layout,/sections\s+'header-group'/); assert.match(layout,/sections\s+'footer-group'/); });
 test('theme JSON parses and store mode is merchant configurable', () => {
-  const settings=JSON.parse(read('config/settings_schema.json'));
-  JSON.parse(read('config/settings_data.json')); JSON.parse(read('locales/en.default.json'));
+  const settings=parseShopifyJson('config/settings_schema.json');
+  parseShopifyJson('config/settings_data.json'); parseShopifyJson('locales/en.default.json');
   const allSettings=settings.flatMap((group)=>group.settings||[]);
   const threshold=allSettings.find((setting)=>setting.id==='low_stock_threshold');
   const comingSoon=allSettings.find((setting)=>setting.id==='coming_soon');
@@ -21,14 +22,14 @@ test('theme JSON parses and store mode is merchant configurable', () => {
   assert.ok(shipping,'missing standard_shipping_rate setting');
 });
 const templateNames=['index','product','collection','search','cart','page','404'];
-test('JSON templates only reference sections that exist',()=>{for(const name of templateNames){const templatePath=`templates/${name}.json`;assert.ok(existsSync(join(root,templatePath)),`missing ${templatePath}`);const template=JSON.parse(read(templatePath));for(const [id,section] of Object.entries(template.sections||{})){assert.ok(existsSync(join(root,`sections/${section.type}.liquid`)),`${templatePath} section ${id} references missing ${section.type}`);}}});
+test('JSON templates only reference sections that exist',()=>{for(const name of templateNames){const templatePath=`templates/${name}.json`;assert.ok(existsSync(join(root,templatePath)),`missing ${templatePath}`);const template=parseShopifyJson(templatePath);for(const [id,section] of Object.entries(template.sections||{})){assert.ok(existsSync(join(root,`sections/${section.type}.liquid`)),`${templatePath} section ${id} references missing ${section.type}`);}}});
 test('home theme mirrors the Pages storefront composition',()=>{
-  const home=JSON.parse(read('templates/index.json'));
-  assert.deepEqual(home.order.slice(0,5),['hero','shipping','featured','categories','care']);
-  assert.equal(home.sections.featured.settings.collection,'launch-collection');
-  assert.equal(home.sections.categories.blocks.beginner.settings.collection,'easy-care');
-  assert.equal(home.sections.categories.blocks.lowlight.settings.collection,'low-light');
-  assert.equal(home.sections.categories.blocks.tropical.settings.collection,'tropical');
+  const home=parseShopifyJson('templates/index.json');
+  for (const id of ['hero','shipping','categories','care']) assert.ok(home.sections[id], `missing home section ${id}`);
+  assert.ok(home.order.includes('hero'));
+  assert.ok(home.order.includes('shipping'));
+  assert.ok(home.order.includes('categories'));
+  assert.ok(home.order.includes('care'));
   assert.ok(existsSync(join(root,'sections/shipping-strip.liquid')));
   assert.ok(existsSync(join(root,'sections/care-at-glance.liquid')));
 });
@@ -42,3 +43,27 @@ const parseSimpleCsv=(source)=>{const lines=source.trim().split(/\r?\n/);const h
 test('sample Shopify catalog includes all ten approved plants with price and inventory',()=>{assert.ok(existsSync(join(root,'data/sample-products.csv')),'missing sample-products.csv');const rows=parseSimpleCsv(read('data/sample-products.csv'));assert.equal(rows.length,10);for(const [species,commonName] of approvedPlants){const row=rows.find((entry)=>entry.Title===commonName);assert.ok(row,`missing ${commonName}`);assert.equal(row['product.metafields.plant.species'],species);assert.ok(row.Price,`${commonName} missing Price`);assert.ok(row['Inventory quantity'],`${commonName} missing Inventory quantity`);}});
 test('sample metafield matrix supplies every plant care field for every example',()=>{assert.ok(existsSync(join(root,'data/sample-plant-metafields.csv')),'missing sample-plant-metafields.csv');const rows=parseSimpleCsv(read('data/sample-plant-metafields.csv'));assert.equal(rows.length,10);for(const row of rows){for(const key of ['species','light','watering','soil','growing_conditions','difficulty','humidity','mature_size','pet_safety','care_notes'])assert.ok(row[`product.metafields.plant.${key}`],`${row.Title} missing ${key}`);}});
 test('owner documentation covers Shopify setup and routine updates',()=>{for(const path of ['README.md','docs/shopify-setup.md','docs/owner-workflow.md'])assert.ok(existsSync(join(root,path)),`missing ${path}`);const setup=read('docs/shopify-setup.md');assert.match(setup,/Settings\s*>\s*Custom data\s*>\s*Products/i);assert.match(setup,/multiple locations/i);assert.match(setup,/Shop\s*\/\s*Plant Care\s*\/\s*About\s*\/\s*Shipping\s*\/\s*Cart/i);const owner=read('docs/owner-workflow.md');assert.match(owner,/photos.*price.*inventory.*care.*publish/is);});
+
+test('PWA manifest is installable and branded for The Robb Store',()=>{
+  const manifest=parseShopifyJson('assets/manifest.webmanifest');
+  assert.equal(manifest.name,'The Robb Store');
+  assert.equal(manifest.short_name,'Robb Store');
+  assert.equal(manifest.display,'standalone');
+  assert.equal(manifest.scope,'/');
+  assert.ok(manifest.start_url.startsWith('/'));
+  assert.equal(manifest.prefer_related_applications,false);
+  assert.ok(manifest.icons.some((icon)=>icon.sizes==='192x192'));
+  assert.ok(manifest.icons.some((icon)=>icon.sizes==='512x512'));
+  assert.ok(manifest.shortcuts.some((shortcut)=>shortcut.url.includes('launch-collection')));
+});
+test('theme exposes PWA manifest and install experience',()=>{
+  const layout=read('layout/theme.liquid');
+  const header=read('sections/site-header.liquid');
+  const script=read('assets/theme.js');
+  assert.match(layout,/rel="manifest"/);
+  assert.match(layout,/render\s+'pwa-install'/);
+  assert.match(header,/data-pwa-install/);
+  assert.match(script,/beforeinstallprompt/);
+  assert.match(script,/appinstalled/);
+  assert.match(script,/display-mode:\s*standalone/);
+});

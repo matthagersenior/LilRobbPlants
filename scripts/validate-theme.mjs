@@ -11,6 +11,7 @@ const required = [
 ];
 
 const read = (path) => readFileSync(join(root, path), 'utf8');
+const parseShopifyJson = (path) => JSON.parse(read(path).replace(/^\/\*[\s\S]*?\*\/\s*/, ''));
 for (const path of required) {
   if (!existsSync(join(root, path))) errors.push(`Missing required file: ${path}`);
 }
@@ -21,7 +22,7 @@ for (const directory of ['config', 'locales', 'templates', 'sections']) {
   for (const file of readdirSync(dir)) {
     if (!file.endsWith('.json')) continue;
     const path = `${directory}/${file}`;
-    try { JSON.parse(read(path)); } catch (error) { errors.push(`Invalid JSON ${path}: ${error.message}`); }
+    try { parseShopifyJson(path); } catch (error) { errors.push(`Invalid JSON ${path}: ${error.message}`); }
   }
 }
 
@@ -42,7 +43,7 @@ if (existsSync(sectionsDir)) {
     }
   }
   for (const file of readdirSync(sectionsDir).filter((name) => name.endsWith('-group.json'))) {
-    const group = JSON.parse(read(`sections/${file}`));
+    const group = parseShopifyJson(`sections/${file}`);
     for (const [id, section] of Object.entries(group.sections || {})) {
       if (!existsSync(join(root, 'sections', `${section.type}.liquid`))) errors.push(`sections/${file} entry ${id} references missing sections/${section.type}.liquid`);
     }
@@ -52,7 +53,7 @@ if (existsSync(sectionsDir)) {
 const templatesDir = join(root, 'templates');
 if (existsSync(templatesDir)) {
   for (const file of readdirSync(templatesDir).filter((name) => name.endsWith('.json'))) {
-    const template = JSON.parse(read(`templates/${file}`));
+    const template = parseShopifyJson(`templates/${file}`);
     for (const [id, section] of Object.entries(template.sections || {})) {
       const sectionPath = join(root, 'sections', `${section.type}.liquid`);
       if (!existsSync(sectionPath)) errors.push(`templates/${file} section ${id} references missing sections/${section.type}.liquid`);
