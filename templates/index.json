@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "featured_collection_znGBYJ": {
+      "type": "featured-collection",
+      "name": "Browse all plants",
+      "settings": {
+        "eyebrow": "Shop all plants",
+        "heading": "Browse All plants",
+        "collection": "all-products",
+        "products_to_show": 10
+      }
+    },
     "hero": {
       "type": "hero",
       "settings": {
@@ -124,6 +134,7 @@
     }
   },
   "order": [
+    "featured_collection_znGBYJ",
     "hero",
     "care",
     "categories",
