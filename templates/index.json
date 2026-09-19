@@ -111,6 +111,16 @@
         "heading": "Hear when fresh inventory lands.",
         "text": "Share your email for store updates you choose to send."
       }
+    },
+    "featured_collection_zKGdzM": {
+      "type": "featured-collection",
+      "name": "Featured plants",
+      "settings": {
+        "eyebrow": "shop all plants",
+        "heading": "Browse all plants",
+        "collection": "all-products",
+        "products_to_show": 10
+      }
     }
   },
   "order": [
@@ -119,6 +129,7 @@
     "categories",
     "shipping",
     "about",
-    "newsletter"
+    "newsletter",
+    "featured_collection_zKGdzM"
   ]
 }
