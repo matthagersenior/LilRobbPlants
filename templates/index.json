@@ -17,8 +17,9 @@
         "text": "<p>Houseplants for every home-from easy-carefavorites to something a little different. Browse our plants and find your next favorite</p>",
         "button_label": "Browse All plants",
         "button_link": "shopify://collections/all",
-        "secondary_button_label": "See shipping examples",
-        "secondary_button_link": "#shipping"
+        "secondary_button_label": "",
+        "secondary_button_link": "",
+        "image": "shopify://shop_images/8105D99F-C291-41FF-AF49-A16DD7CA5263.png"
       }
     },
     "care": {
