@@ -22,9 +22,9 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "eyebrow": "Plants that fit real homes",
-        "heading": "Welcome to the Robb store!!!",
-        "text": "<p>Houseplants for every home-from easy-carefavorites to something a little different. Browse our plants and find your next favorite</p>",
+        "eyebrow": "Welcome to the Robbstore!!!",
+        "heading": "Plants,Pots,and Propagation.",
+        "text": "<p>Houseplants for every home, from easy care favorites to something a bit different. Shop The Robbstore and find the perfect addition to your collection.</p>",
         "button_label": "Browse All plants",
         "button_link": "shopify://collections/all",
         "secondary_button_label": "",
