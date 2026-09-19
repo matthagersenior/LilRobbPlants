@@ -9,61 +9,15 @@
  */
 {
   "sections": {
-    "care_at_glance_7XfWLf": {
-      "type": "care-at-glance",
-      "name": "Care at a glance",
-      "settings": {
-        "eyebrow": "Care at a glance",
-        "heading": "No mystery labels.",
-        "text": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>"
-      }
-    },
-    "category_grid_6kiXwD": {
-      "type": "category-grid",
-      "blocks": {
-        "collection_n8kXnq": {
-          "type": "collection",
-          "settings": {
-            "collection": "therobbstore-myshopify-com",
-            "fallback_title": "Tiffany{{ block.settings.collection.title }}"
-          }
-        },
-        "collection_9GYjEB": {
-          "type": "collection",
-          "settings": {
-            "collection": "the-robb-collection",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_f8Jcci": {
-          "type": "collection",
-          "settings": {
-            "collection": "the-legacy-collection",
-            "fallback_title": "The Legacy Collection"
-          }
-        }
-      },
-      "block_order": [
-        "collection_n8kXnq",
-        "collection_9GYjEB",
-        "collection_f8Jcci"
-      ],
-      "name": "Plant categories",
-      "settings": {
-        "heading": "Lil Robb's Featured Collections"
-      }
-    },
     "main": {
       "type": "main-collection",
-      "disabled": true,
+      "name": "All Products",
       "settings": {
-        "products_per_page": 8
+        "products_per_page": 20
       }
     }
   },
   "order": [
-    "care_at_glance_7XfWLf",
-    "category_grid_6kiXwD",
     "main"
   ]
 }

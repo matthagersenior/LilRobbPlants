@@ -16,7 +16,7 @@
         "heading": "Find a plant you’ll know how to keep happy.",
         "text": "<p>See the species, price, live inventory, and practical care details before you choose. Checkout will open when the store is ready for orders.</p>",
         "button_label": "Browse plants",
-        "button_link": "shopify://collections",
+        "button_link": "shopify://collections/all",
         "secondary_button_label": "See shipping examples",
         "secondary_button_link": "#shipping"
       }
@@ -27,41 +27,6 @@
         "eyebrow": "Care at a glance",
         "heading": "No mystery labels.",
         "text": "<p>Every plant includes light, watering, soil, growing conditions, difficulty, humidity, mature size, pet-safety notes, and extra care guidance when available.</p>"
-      }
-    },
-    "category_grid_tetEDz": {
-      "type": "category-grid",
-      "blocks": {
-        "collection_qReUAx": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_btCLtd": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "fallback_title": "Plant collection"
-          }
-        },
-        "collection_rQtcb4": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "fallback_title": "Plant collection"
-          }
-        }
-      },
-      "block_order": [
-        "collection_qReUAx",
-        "collection_btCLtd",
-        "collection_rQtcb4"
-      ],
-      "name": "All Products",
-      "settings": {
-        "heading": "Shop by what your space needs"
       }
     },
     "categories": {
@@ -150,7 +115,6 @@
   "order": [
     "hero",
     "care",
-    "category_grid_tetEDz",
     "categories",
     "shipping",
     "about",

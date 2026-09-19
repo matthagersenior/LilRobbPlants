@@ -12,6 +12,13 @@
     "category_grid_6kiXwD": {
       "type": "category-grid",
       "blocks": {
+        "collection_hwN9gL": {
+          "type": "collection",
+          "settings": {
+            "collection": "all-products",
+            "fallback_title": "Plant collection"
+          }
+        },
         "collection_n8kXnq": {
           "type": "collection",
           "settings": {
@@ -35,6 +42,7 @@
         }
       },
       "block_order": [
+        "collection_hwN9gL",
         "collection_n8kXnq",
         "collection_9GYjEB",
         "collection_f8Jcci"
