@@ -56,6 +56,7 @@
       "blocks": {
         "collection_c7Cz7g": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": "the-legacy-collection",
             "fallback_title": "Plant collection"
@@ -63,6 +64,7 @@
         },
         "collection_xR7V4X": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": "the-robb-collection",
             "fallback_title": "Plant collection"
@@ -70,6 +72,7 @@
         },
         "collection_yERhzV": {
           "type": "collection",
+          "disabled": true,
           "settings": {
             "collection": "therobbstore-myshopify-com",
             "fallback_title": "Plant collection"
